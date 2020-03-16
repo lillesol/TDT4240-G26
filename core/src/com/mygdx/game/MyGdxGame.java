@@ -1,33 +1,62 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class MyGdxGame extends ApplicationAdapter {
+public class MyGdxGame extends Game {
+	private LoadingScreen loadingScreen;
+	private PreferencesMenu preferencesScreen;
+	private MainMenu menuScreen;
+	private GameSelectMenu gameScreen;
+	private GameOverMenu endScreen;
+
 	SpriteBatch batch;
-	Texture img;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-	}
+	ShapeRenderer shapeRenderer;
+	BitmapFont font;
+
+
+
+	final static int MENU = 0;
+	final static int PREFERENCES = 1;
+	final static int GAME = 2;
+	final static int ENDGAME = 3;
 
 	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	public void create() {
+		loadingScreen = new LoadingScreen(this);
+		setScreen(loadingScreen);
+		batch = new SpriteBatch();
+		shapeRenderer = new ShapeRenderer();
+		font = new BitmapFont();
+
 	}
-	
+
+	void changeScreen(int screen) {
+		switch (screen) {
+			case MENU :
+				if(menuScreen == null) menuScreen = new MainMenu(this);
+				this.setScreen(menuScreen);
+				break;
+			case PREFERENCES:
+				if(preferencesScreen == null) preferencesScreen = new PreferencesMenu(this);
+				this.setScreen(preferencesScreen);
+				break;
+			case GAME:
+				if(gameScreen == null) gameScreen = new GameSelectMenu(this);
+				this.setScreen(gameScreen);
+				break;
+			case ENDGAME:
+				if(endScreen == null) endScreen = new GameOverMenu(this);
+				this.setScreen(endScreen);
+				break;
+		}
+	}
 	@Override
-	public void dispose () {
+	public void dispose() {
 		batch.dispose();
-		img.dispose();
+		shapeRenderer.dispose();
+		font.dispose();
 	}
 }
