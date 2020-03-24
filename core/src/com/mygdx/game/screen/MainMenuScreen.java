@@ -1,27 +1,28 @@
-package com.mygdx.game;
+package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.kotcrab.vis.ui.VisUI;
+import com.mygdx.game.utils.ScreenEnum;
+import com.mygdx.game.utils.ScreenManager;
 
 
-public class MainMenu extends MenuScreen implements Screen  {
+public class MainMenuScreen extends AbstractScreen {
 
-    MainMenu(MyGdxGame game) {
-        super(game);
+    public MainMenuScreen(){
+        super();
     }
 
-    @Override
-    public void show() {
+    public void buildStage() {
         Table table = new Table();
         table.setFillParent(true);
         table.setDebug(true);
 
-        Skin skin = new Skin(Gdx.files.internal("skin/clean-crispy-ui.json"));
+        Skin skin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
         TextButton btnNewGame = new TextButton("New Game", skin);
         TextButton btnPreferences = new TextButton("Preferences", skin);
         TextButton btnQuit = new TextButton("Quit", skin);
@@ -33,20 +34,18 @@ public class MainMenu extends MenuScreen implements Screen  {
         table.row();
         table.add(btnQuit).fillX().uniformX();
 
-        stage.addActor(table);
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(),1/30f));
-        stage.draw();
 
-        btnNewGame.addListener(new ChangeListener() {
+        // Refactor this to a Factory class for UI elements and listeners?
+        addActor(table);        btnNewGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                parent.changeScreen(MyGdxGame.GAME);
+                ScreenManager.getInstance().showScreen(ScreenEnum.LEVEL_SELECT);
             }
         });
         btnPreferences.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                parent.changeScreen(MyGdxGame.PREFERENCES);
+                ScreenManager.getInstance().showScreen(ScreenEnum.PREFERENCES);
             }
         });
         btnQuit.addListener(new ChangeListener() {
@@ -57,19 +56,8 @@ public class MainMenu extends MenuScreen implements Screen  {
         });
     }
 
-
     @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
+    public void dispose() {
+        super.dispose();
     }
 }
