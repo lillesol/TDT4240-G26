@@ -26,6 +26,7 @@ public class SingleplayerScreen extends AbstractScreen {
         ball1.setPos(0,0);
         System.out.println(ball1.getHeight());
         addActor(ball1);
+
     }
 
 
