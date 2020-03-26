@@ -1,4 +1,4 @@
-package com.mygdx.game.screen;
+package com.mygdx.game.screen.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.kotcrab.vis.ui.VisUI;
+import com.mygdx.game.screen.AbstractScreen;
 import com.mygdx.game.utils.ScreenEnum;
 import com.mygdx.game.utils.ScreenManager;
 
@@ -36,7 +36,9 @@ public class MainMenuScreen extends AbstractScreen {
 
 
         // Refactor this to a Factory class for UI elements and listeners?
-        addActor(table);        btnNewGame.addListener(new ChangeListener() {
+        addActor(table);
+
+        btnNewGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ScreenManager.getInstance().showScreen(ScreenEnum.LEVEL_SELECT);

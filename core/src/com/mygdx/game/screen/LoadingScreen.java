@@ -18,6 +18,8 @@ public class LoadingScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
+        System.out.println(this.getClass());
+
         Table table = new Table();
         table.setFillParent(true);
         table.setDebug(true);

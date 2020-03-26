@@ -1,12 +1,13 @@
 package com.mygdx.game.utils;
 
 import com.mygdx.game.screen.AbstractScreen;
-import com.mygdx.game.screen.GameOverScreen;
-import com.mygdx.game.screen.GameScreen;
-import com.mygdx.game.screen.GameSelectScreen;
+import com.mygdx.game.screen.menu.GameOverScreen;
+import com.mygdx.game.screen.MultiplayerScreen;
+import com.mygdx.game.screen.SingleplayerScreen;
+import com.mygdx.game.screen.menu.GameSelectScreen;
 import com.mygdx.game.screen.LoadingScreen;
-import com.mygdx.game.screen.MainMenuScreen;
-import com.mygdx.game.screen.PreferencesScreen;
+import com.mygdx.game.screen.menu.MainMenuScreen;
+import com.mygdx.game.screen.menu.PreferencesScreen;
 
 public enum ScreenEnum {
 
@@ -15,14 +16,14 @@ public enum ScreenEnum {
             return new MainMenuScreen();
         }
     },
-    LEVEL_SELECT {
-        public AbstractScreen getScreen(Object... params) {
-            return new GameSelectScreen();
-        }
-    },
     PREFERENCES {
         public AbstractScreen getScreen(Object... params) {
             return new PreferencesScreen();
+        }
+    },
+    LEVEL_SELECT {
+        public AbstractScreen getScreen(Object... params) {
+            return new GameSelectScreen();
         }
     },
     LOADING {
@@ -35,9 +36,14 @@ public enum ScreenEnum {
             return new GameOverScreen();
         }
     },
-    GAME {
+    SINGLE_PLAYER {
         public AbstractScreen getScreen(Object... params) {
-            return new GameScreen((Integer) params[0]);
+            return new SingleplayerScreen();
+        }
+    },
+    MULTI_PLAYER {
+        public AbstractScreen getScreen(Object... params) {
+            return new MultiplayerScreen();
         }
     };
 
