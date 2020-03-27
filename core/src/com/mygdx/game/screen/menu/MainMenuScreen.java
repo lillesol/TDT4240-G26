@@ -34,7 +34,6 @@ public class MainMenuScreen extends AbstractScreen {
         table.row();
         table.add(btnQuit).fillX().uniformX();
 
-
         // Refactor this to a Factory class for UI elements and listeners?
         addActor(table);
 

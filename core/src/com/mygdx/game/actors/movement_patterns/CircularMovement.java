@@ -11,10 +11,11 @@ public class CircularMovement extends MovementPattern {
     private float currentAngle;
 
 
-    public CircularMovement(float radius, float centerX, float centerY){
+    public CircularMovement(float radius, float centerX, float centerY, float currentAngle){
         this.radius = radius;
         this.centerX = centerX;
         this.centerY = centerY;
+        this.currentAngle = currentAngle;
     }
 
 

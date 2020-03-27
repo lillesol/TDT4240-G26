@@ -2,8 +2,8 @@ package com.mygdx.game.actors.movement_patterns;
 
 public abstract class MovementPattern {
 
-    private float originX;
-    private float originY;
+    private float centerX;
+    private float centerY;
 
     public MovementPattern(){
 

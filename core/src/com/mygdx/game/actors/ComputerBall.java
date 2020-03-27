@@ -1,5 +1,11 @@
 package com.mygdx.game.actors;
-
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.actors.movement_patterns.CircularMovement;
+import com.mygdx.game.actors.movement_patterns.MovementPattern;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -13,14 +19,14 @@ import com.mygdx.game.actors.movement_patterns.SquareMovement;
 
 import java.lang.Math.*;
 
-public class PlayerBall extends Actor {
+public class ComputerBall extends Actor{
     public Sprite sprite;
     private MovementPattern movementPattern;
     public float speedMultiplier;
 
-    public PlayerBall(Texture texture, final String actorName) {
+    public ComputerBall(Texture texture, final String actorName) {
         sprite = new Sprite(texture);
-        movementPattern = new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, 0, 90);
+        movementPattern = new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, MyGdxGame.HEIGHT/3, 270);
         //movementPattern = new SquareMovement(MyGdxGame.WIDTH/5, 0);
         setPos(sprite.getX(), sprite.getY());
 
@@ -28,11 +34,7 @@ public class PlayerBall extends Actor {
 
     }
 
-    public void setMovementPattern(MovementPattern movementPattern) {
-        this.movementPattern = movementPattern;
-    }
-
-    public void setSpeedMultiplier(float speedMultiplier){
+    public void setSpeedMultiplier(float speedMultiplier) {
         this.speedMultiplier = speedMultiplier;
     }
 
@@ -60,3 +62,4 @@ public class PlayerBall extends Actor {
         sprite.draw(batch);
     }
 }
+
