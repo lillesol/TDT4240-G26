@@ -37,12 +37,14 @@ public class MultiplayerScreen extends AbstractScreen {
 
         //Adding playerBall
         playerBall = new PlayerBall(txtreBall, "playerBall");
+        playerBall.sprite.setColor(0,100,0,1);
         playerBall.sprite.setSize(100,100);
         playerBall.setPos(MyGdxGame.WIDTH/4,000);
         addActor(playerBall);
 
         //Adding playerBall
         player2Ball = new PlayerBall(txtreBall, "player2Ball");
+        player2Ball.sprite.setColor(0,000,10,1);
         player2Ball.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, MyGdxGame.HEIGHT-MyGdxGame.HEIGHT/3, 90));
         player2Ball.sprite.setSize(100,100);
         player2Ball.setPos(MyGdxGame.WIDTH/4,300);
@@ -50,6 +52,7 @@ public class MultiplayerScreen extends AbstractScreen {
 
         //Adding computerBall
         computerBall = new ComputerBall(txtreBall, "computerBall");
+        computerBall.sprite.setColor(1,000,00,1);
         computerBall.sprite.setSize(100,100);
         computerBall.setPos(MyGdxGame.WIDTH/4,600);
         addActor(computerBall);
@@ -72,8 +75,7 @@ public class MultiplayerScreen extends AbstractScreen {
             playerBall.setSpeedMultiplier(1);
             player2Ball.setSpeedMultiplier(1);
         }
-
-        System.out.println(checkPlayer1Collision());
+        
         if (checkPlayer1Collision()){
             ScreenManager.getInstance().showScreen(ScreenEnum.MULTI_PLAYER);
         }else if(checkPlayer2collision()){

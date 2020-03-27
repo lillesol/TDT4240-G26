@@ -40,7 +40,7 @@ public class SingleplayerScreen extends AbstractScreen {
         playerBall = new PlayerBall(txtreBall, "playerBall");
         playerBall.sprite.setSize(100,100);
         playerBall.setPos(500,400);
-        System.out.println(playerBall.getHeight());
+        playerBall.sprite.setColor(0,1,0,1);
         addActor(playerBall);
 
         //Adding computerBall
@@ -61,7 +61,6 @@ public class SingleplayerScreen extends AbstractScreen {
             playerBall.setSpeedMultiplier(1);
         }
 
-        System.out.println(checkCollision());
         if (checkCollision()){
             ScreenManager.getInstance().showScreen(ScreenEnum.SINGLE_PLAYER);
         }
