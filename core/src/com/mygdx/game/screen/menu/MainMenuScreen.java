@@ -80,7 +80,8 @@ public class MainMenuScreen extends AbstractScreen {
         btnLbTest.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                int randomScore = randomLeaderboardScore.nextInt(1) + 100;
+                int randomScore = randomLeaderboardScore.nextInt(100);
+                System.out.println("Random score ("+randomScore+") added to the Leaderboard");
                 MyGdxGame.gpgs.updateLeaderboards(randomScore);
             }
         });

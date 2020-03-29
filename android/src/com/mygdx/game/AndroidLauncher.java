@@ -345,7 +345,7 @@ public class AndroidLauncher extends AndroidApplication implements GooglePlayGam
 
 	@Override
 	public void updateLeaderboards(int finalScore) {
-
+		mLeaderboardsClient.submitScore(getString(R.string.leaderboard_mainleaderboard), finalScore);
 	}
 
 }
