@@ -28,6 +28,9 @@ allprojects {
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
         visuiversion = '1.4.2'
+        appcompat_library_version = '27.0.2'
+        support_library_version = '27.0.2'
+        gms_library_version = '11.6.2'
     }
 
     repositories {
@@ -37,6 +40,9 @@ allprojects {
         google()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven {
+            url "https://maven.google.com"
+        }
     }
 }
 

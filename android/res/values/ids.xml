@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Google Play game services IDs.
+Save this file as res/values/games-ids.xml in your project.
+-->
+<resources>
+    <!-- app_id -->
+    <string name="app_id" translatable="false">224748350528</string>
+    <!-- package_name -->
+    <string name="package_name" translatable="false">com.mygdx.game</string>
+    <!-- achievement YEE BOiii! You get the game logic! -->
+    <string name="achievement_yee_boiii_you_get_the_game_logic" translatable="false">CgkIwNiuoMUGEAIQAQ</string>
+    <!-- achievement Horsy Horse! -->
+    <string name="achievement_horsy_horse" translatable="false">CgkIwNiuoMUGEAIQAg</string>
+    <!-- leaderboard MainLeaderboard -->
+    <string name="leaderboard_mainleaderboard" translatable="false">CgkIwNiuoMUGEAIQAw</string>
+
+</resources>
