@@ -8,12 +8,6 @@
     <string name="leaderboards_exception">There was an issue communicating with leaderboards.</string>
     <string name="players_exception">There was an issue communicating with players.</string>
     <string name="status_exception_error">%1$s (status %2$d). %3$s.</string>
-    <string name="easy_mode_explanation">You\'re playing in easy mode, so you got the score you requested! Wasn\'t that easy?</string>
-    <string name="hard_mode_explanation">You\'re playing in hard mode, so you only got half the score you requested! Isn\'t this game hard?</string>
-    <string name="achievement_prime_toast_text">Prime score!</string>
-    <string name="achievement_arrogant_toast_text">Arrogant (requested maximum score)!</string>
-    <string name="achievement_humble_toast_text">Humble! (requested 0 score)</string>
-    <string name="achievement_leet_toast_text">L33t! (got 1337 score)</string>
     <string name="achievement">Achievement</string>
     <string name="your_progress_will_be_uploaded">Your existing achievements and score will be uploaded shortly.</string>
     <string name="what_score_do_you_deserve">What score do you think you deserve?</string>
@@ -36,6 +30,8 @@
     <string name="see_your_progress">See your progress:</string>
     <string name="show_achievements">Show Achievements</string>
     <string name="show_leaderboards">Show Leaderboards</string>
+    <string name="achievement_logic">Looks like you got hang of it! You are now ready to Rush that Circle like a CHAMP!</string>
+    <string name="achievement_horsy">YEHAA! You\'re on da horsy now! Hang on, you will get the hold of it soon!\</string>
     <string name="sign_in_why">Sign in with Google to share your scores and achievements with your friends.</string>
     <string name="you_are_signed_in">You are signed in with Google.</string>
     <string name="sign_out">Sign out</string>

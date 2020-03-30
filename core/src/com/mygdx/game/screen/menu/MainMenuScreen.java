@@ -82,7 +82,8 @@ public class MainMenuScreen extends AbstractScreen {
             public void changed(ChangeEvent event, Actor actor) {
                 int randomScore = randomLeaderboardScore.nextInt(100);
                 System.out.println("Random score ("+randomScore+") added to the Leaderboard");
-                MyGdxGame.gpgs.updateLeaderboards(randomScore);
+                System.out.println("Possible achievement unlocked (if: 1:score above 20, 2:score above 90)");
+                MyGdxGame.gpgs.onEnteredScore(randomScore);
             }
         });
         btnQuit.addListener(new ChangeListener() {

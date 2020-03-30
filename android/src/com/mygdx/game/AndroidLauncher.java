@@ -47,6 +47,9 @@ public class AndroidLauncher extends AndroidApplication implements GooglePlayGam
 	private EventsClient mEventsClient;
 	private PlayersClient mPlayersClient;
 
+	// Accomplishment controller
+	private AccomplishmentsOutbox mOutbox = new AccomplishmentsOutbox();
+
 	// request codes used when invoking an external activity
 	private static final int RC_UNUSED = 5001;
 	private static final int RC_SIGN_IN = 9001;
@@ -85,8 +88,6 @@ public class AndroidLauncher extends AndroidApplication implements GooglePlayGam
 					}
 				});
 
-
-		/*
 		// if we have accomplishments to push, push them
 		if (!mOutbox.isEmpty()) {
 			pushAccomplishments();
@@ -94,9 +95,6 @@ public class AndroidLauncher extends AndroidApplication implements GooglePlayGam
 					Toast.LENGTH_LONG).show();
 		}
 
-		loadAndPrintEvents();
-
-		 */
 	}
 
 	private void onDisconnected() {
@@ -271,23 +269,17 @@ public class AndroidLauncher extends AndroidApplication implements GooglePlayGam
 	public void checkForAchievements(int requestedScore, int finalScore) {
 		// Check if each condition is met; if so, unlock the corresponding
 		// achievement.
-		if (isPrime(finalScore)) {
-			// mOutbox.mPrimeAchievement = true;
-			achievementToast(getString(R.string.achievement_prime_toast_text));
+
+		// change requested score to " == X" when testing is done
+		if (requestedScore > 20) {
+			mOutbox.mLogicAchievement = true;
+			achievementToast(getString(R.string.achievement_logic));
 		}
-		if (requestedScore == 9999) {
-			// mOutbox.mArrogantAchievement = true;
-			achievementToast(getString(R.string.achievement_arrogant_toast_text));
+		// change requested score to " == X" when testing is done
+		if (requestedScore > 90) {
+			mOutbox.mHorsyAchievement = true;
+			achievementToast(getString(R.string.achievement_horsy));
 		}
-		if (requestedScore == 0) {
-			// mOutbox.mHumbleAchievement = true;
-			achievementToast(getString(R.string.achievement_humble_toast_text));
-		}
-		if (finalScore == 1337) {
-			// mOutbox.mLeetAchievement = true;
-			achievementToast(getString(R.string.achievement_leet_toast_text));
-		}
-		// mOutbox.mBoredSteps++;
 	}
 
 	@Override
@@ -304,48 +296,34 @@ public class AndroidLauncher extends AndroidApplication implements GooglePlayGam
 	public void pushAccomplishments() {
 		if (!isSignedIn()) {
 			// can't push to the cloud, try again later
+			System.err.println("Cannot push accomplishments: User not signed in");
 			return;
 		}
-		/*
-		if (mOutbox.mPrimeAchievement) {
-			mAchievementsClient.unlock(getString(R.string.achievement_prime));
-			mOutbox.mPrimeAchievement = false;
+		if (mOutbox.mLogicAchievement) {
+			System.out.println("Achievement Logic accomplished!");
+			mAchievementsClient.unlock(getString(R.string.achievement_yee_boiii_you_get_the_game_logic));
+			mOutbox.mLogicAchievement = false;
 		}
-		if (mOutbox.mArrogantAchievement) {
-			mAchievementsClient.unlock(getString(R.string.achievement_arrogant));
-			mOutbox.mArrogantAchievement = false;
+		if (mOutbox.mHorsyAchievement) {
+			System.out.println("Achievement Horsy accomplished!");
+			mAchievementsClient.unlock(getString(R.string.achievement_horsy_horse));
+			mOutbox.mHorsyAchievement = false;
 		}
-		if (mOutbox.mHumbleAchievement) {
-			mAchievementsClient.unlock(getString(R.string.achievement_humble));
-			mOutbox.mHumbleAchievement = false;
-		}
-		if (mOutbox.mLeetAchievement) {
-			mAchievementsClient.unlock(getString(R.string.achievement_leet));
-			mOutbox.mLeetAchievement = false;
-		}
-		if (mOutbox.mBoredSteps > 0) {
-			mAchievementsClient.increment(getString(R.string.achievement_really_bored),
-					mOutbox.mBoredSteps);
-			mAchievementsClient.increment(getString(R.string.achievement_bored),
-					mOutbox.mBoredSteps);
-			mOutbox.mBoredSteps = 0;
-		}
-		if (mOutbox.mEasyModeScore >= 0) {
-			mLeaderboardsClient.submitScore(getString(R.string.leaderboard_easy),
-					mOutbox.mEasyModeScore);
-			mOutbox.mEasyModeScore = -1;
-		}
-		if (mOutbox.mHardModeScore >= 0) {
-			mLeaderboardsClient.submitScore(getString(R.string.leaderboard_hard),
-					mOutbox.mHardModeScore);
-			mOutbox.mHardModeScore = -1;
-		}
-		 */
 	}
 
 	@Override
 	public void updateLeaderboards(int finalScore) {
 		mLeaderboardsClient.submitScore(getString(R.string.leaderboard_mainleaderboard), finalScore);
+	}
+
+	private class AccomplishmentsOutbox {
+		public boolean mLogicAchievement = false;
+		public boolean mHorsyAchievement = false;
+
+		boolean isEmpty() {
+			return !mLogicAchievement && !mHorsyAchievement;
+		}
+
 	}
 
 }
