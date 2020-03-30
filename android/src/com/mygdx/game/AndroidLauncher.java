@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
 import static android.content.ContentValues.TAG;
@@ -22,14 +20,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.games.AchievementsClient;
-import com.google.android.gms.games.AnnotatedData;
 import com.google.android.gms.games.EventsClient;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.LeaderboardsClient;
 import com.google.android.gms.games.Player;
 import com.google.android.gms.games.PlayersClient;
-import com.google.android.gms.games.event.Event;
-import com.google.android.gms.games.event.EventBuffer;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -222,10 +217,6 @@ public class AndroidLauncher extends AndroidApplication implements GooglePlayGam
 				.show();
 	}
 
-	@Override
-	public void startGame(boolean hardMode) {
-
-	}
 
 	@Override
 	public void onEnteredScore(int requestedScore) {
@@ -242,21 +233,6 @@ public class AndroidLauncher extends AndroidApplication implements GooglePlayGam
 		pushAccomplishments();
 
 		//mEventsClient.increment(getString(R.string.event_number_chosen), 1);
-	}
-
-	// Checks if n is prime. We don't consider 0 and 1 to be prime.
-	@Override
-	public boolean isPrime(int n) {
-		int i;
-		if (n == 0 || n == 1) {
-			return false;
-		}
-		for (i = 2; i <= n / 2; i++) {
-			if (n % i == 0) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	/**

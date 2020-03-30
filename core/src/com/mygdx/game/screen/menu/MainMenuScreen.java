@@ -31,21 +31,25 @@ public class MainMenuScreen extends AbstractScreen {
         Skin skin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
         TextButton btnNewGame = new TextButton("New Game", skin);
         final TextButton btnPreferences = new TextButton("Preferences", skin);
-        final TextButton btnSignin = new TextButton("Sign in", skin);
+        final TextButton btnSignIn = new TextButton("Sign in", skin);
         TextButton btnLeaderboard = new TextButton("Leaderboard", skin);
         TextButton btnLbTest = new TextButton("Leaderboard Test Random Score", skin);
         TextButton btnQuit = new TextButton("Quit", skin);
+
+        // If user is already signed in
+        if(MyGdxGame.gpgs.isSignedIn()){
+            btnSignIn.setText("Sign out");
+        }
 
         table.add(btnNewGame).fillX().uniformX();
         table.row();
         table.add(btnPreferences).fillX().uniformX();
         table.row();
-        table.add(btnSignin).fillX().uniformX();
-        table.row();
         table.add(btnLeaderboard).fillX().uniformX();
         table.row();
         table.add(btnLbTest).fillX().uniformX();
-        table.row();
+        table.row().pad(10,0,10,0);
+        table.add(btnSignIn).fillX().uniformX();
         table.row().pad(10,0,10,0);
         table.add(btnQuit).fillX().uniformX();
 
@@ -64,13 +68,6 @@ public class MainMenuScreen extends AbstractScreen {
                 ScreenManager.getInstance().showScreen(ScreenEnum.PREFERENCES);
             }
         });
-        btnSignin.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                MyGdxGame.gpgs.startSignInIntent();
-                btnSignin.setDisabled(true);
-            }
-        });
         btnLeaderboard.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -84,6 +81,18 @@ public class MainMenuScreen extends AbstractScreen {
                 System.out.println("Random score ("+randomScore+") added to the Leaderboard");
                 System.out.println("Possible achievement unlocked (if: 1:score above 20, 2:score above 90)");
                 MyGdxGame.gpgs.onEnteredScore(randomScore);
+            }
+        });
+        btnSignIn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if(!MyGdxGame.gpgs.isSignedIn()) {
+                    MyGdxGame.gpgs.startSignInIntent();
+                    btnSignIn.setText("Sign out");
+                }else {
+                    MyGdxGame.gpgs.signOut();
+                    btnSignIn.setText("Sign in");
+                }
             }
         });
         btnQuit.addListener(new ChangeListener() {
