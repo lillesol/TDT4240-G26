@@ -80,6 +80,7 @@ public class MainMenuScreen extends AbstractScreen {
                 int randomScore = randomLeaderboardScore.nextInt(100);
                 System.out.println("Random score ("+randomScore+") added to the Leaderboard");
                 System.out.println("Possible achievement unlocked (if: 1:score above 20, 2:score above 90)");
+                // add this when Game Over
                 MyGdxGame.gpgs.onEnteredScore(randomScore);
             }
         });
