@@ -3,8 +3,13 @@ package com.mygdx.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.actors.ComputerBall;
@@ -14,14 +19,14 @@ import com.mygdx.game.utils.ScreenManager;
 
 import java.awt.Rectangle;
 
+import javax.xml.soap.Text;
+
 public class SingleplayerScreen extends AbstractScreen {
 
     private PlayerBall playerBall;
     private ComputerBall computerBall;
-
+    public Label score;
     private Texture txtreBall;
-
-
 
     public SingleplayerScreen() {
         super();
@@ -48,13 +53,18 @@ public class SingleplayerScreen extends AbstractScreen {
         computerBall.sprite.setSize(100,100);
         computerBall.setPos(1,0);
         addActor(computerBall);
+
+        Skin skin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
+        score = new Label(String.valueOf(playerBall.score),skin);
+        score.setPosition(300,700);
+        addActor(score);
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        score.setText(playerBall.score);
         if (Gdx.input.isTouched()){
             playerBall.setSpeedMultiplier(5);
         }else {
@@ -62,7 +72,7 @@ public class SingleplayerScreen extends AbstractScreen {
         }
 
         if (checkCollision()){
-            ScreenManager.getInstance().showScreen(ScreenEnum.SINGLE_PLAYER);
+            ScreenManager.getInstance().showScreen(ScreenEnum.GAME_OVER);
         }
         act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         draw();
