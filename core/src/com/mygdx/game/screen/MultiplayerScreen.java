@@ -1,5 +1,6 @@
 package com.mygdx.game.screen;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -37,24 +38,25 @@ public class MultiplayerScreen extends AbstractScreen {
 
         //Adding playerBall
         playerBall = new PlayerBall(txtreBall, "playerBall");
-        playerBall.sprite.setColor(0,100,0,1);
-        playerBall.sprite.setSize(100,100);
-        playerBall.setPos(MyGdxGame.WIDTH/4,000);
+        playerBall.sprite.setSize(75,75);
+        playerBall.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, 3*MyGdxGame.HEIGHT/10, 90));
+        playerBall.sprite.setColor(0,1,0,1);
         addActor(playerBall);
 
-        //Adding playerBall
+        //Adding player2Ball
         player2Ball = new PlayerBall(txtreBall, "player2Ball");
-        player2Ball.sprite.setColor(0,000,10,1);
-        player2Ball.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, MyGdxGame.HEIGHT-MyGdxGame.HEIGHT/3, 90));
-        player2Ball.sprite.setSize(100,100);
-        player2Ball.setPos(MyGdxGame.WIDTH/4,300);
+        player2Ball.sprite.setColor(0,0,1,1);
+        player2Ball.sprite.setSize(75,75);
+        player2Ball.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, 5*MyGdxGame.HEIGHT/10, 180));
+
         addActor(player2Ball);
 
         //Adding computerBall
         computerBall = new ComputerBall(txtreBall, "computerBall");
-        computerBall.sprite.setColor(1,000,00,1);
-        computerBall.sprite.setSize(100,100);
-        computerBall.setPos(MyGdxGame.WIDTH/4,600);
+        computerBall.sprite.setSize(75,75);
+        computerBall.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, 4*MyGdxGame.HEIGHT/10, 270));
+        computerBall.sprite.setColor(1,0,0,1);
+
         addActor(computerBall);
     }
 
@@ -62,7 +64,6 @@ public class MultiplayerScreen extends AbstractScreen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         if (Gdx.input.isTouched()){
             if (Gdx.input.getY() > MyGdxGame.HEIGHT/2){
                 playerBall.setSpeedMultiplier(5);
@@ -70,21 +71,17 @@ public class MultiplayerScreen extends AbstractScreen {
             if (Gdx.input.getY() < MyGdxGame.HEIGHT/2) {
                 player2Ball.setSpeedMultiplier(5);
             }
-
         }else {
             playerBall.setSpeedMultiplier(1);
             player2Ball.setSpeedMultiplier(1);
         }
-        
+        act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        draw();
         if (checkPlayer1Collision()){
             ScreenManager.getInstance().showScreen(ScreenEnum.MULTI_PLAYER);
         }else if(checkPlayer2collision()){
             ScreenManager.getInstance().showScreen(ScreenEnum.MULTI_PLAYER);
         }
-
-
-        act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        draw();
     }
 
     @Override

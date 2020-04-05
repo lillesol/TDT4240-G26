@@ -13,19 +13,15 @@ import com.mygdx.game.actors.movement_patterns.SquareMovement;
 
 import java.lang.Math.*;
 
+
 public class PlayerBall extends Actor {
     public Sprite sprite;
     private MovementPattern movementPattern;
     public float speedMultiplier;
 
-    public PlayerBall(Texture texture, final String actorName) {
+    public PlayerBall(Texture texture, final String actorName){
         sprite = new Sprite(texture);
-        movementPattern = new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, 0, 90);
-        //movementPattern = new SquareMovement(MyGdxGame.WIDTH/5, 0);
-        setPos(sprite.getX(), sprite.getY());
-
         speedMultiplier = 1;
-
     }
 
     public void setMovementPattern(MovementPattern movementPattern) {
@@ -45,7 +41,8 @@ public class PlayerBall extends Actor {
     public void move(float delta){
         float multipliedDelta = delta*this.speedMultiplier;
         float[] position = movementPattern.move(multipliedDelta);
-        setPos(position[0],position[1]);
+        //MAYBE MOVE TO SPRITE ADJUSTMENT TO setPos
+        setPos(position[0]+(sprite.getWidth()/2),position[1]-(sprite.getHeight()/2));
 
     }
 

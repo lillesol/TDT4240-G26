@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.actors.ComputerBall;
 import com.mygdx.game.actors.PlayerBall;
+import com.mygdx.game.actors.movement_patterns.CircularMovement;
+import com.mygdx.game.actors.movement_patterns.SquareMovement;
 import com.mygdx.game.utils.ScreenEnum;
 import com.mygdx.game.utils.ScreenManager;
 
@@ -18,7 +20,6 @@ public class SingleplayerScreen extends AbstractScreen {
 
     private PlayerBall playerBall;
     private ComputerBall computerBall;
-
     private Texture txtreBall;
 
 
@@ -34,19 +35,20 @@ public class SingleplayerScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
-        System.out.println(this.getClass());
-
+        System.out.println("done");
         //Adding playerBall
         playerBall = new PlayerBall(txtreBall, "playerBall");
-        playerBall.sprite.setSize(100,100);
-        playerBall.setPos(500,400);
+        playerBall.sprite.setSize(75,75);
+        playerBall.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, MyGdxGame.HEIGHT/3, 90));
+        //playerBall.setMovementPattern( new SquareMovement(MyGdxGame.WIDTH/5, MyGdxGame.HEIGHT/4));
         playerBall.sprite.setColor(0,1,0,1);
         addActor(playerBall);
 
         //Adding computerBall
         computerBall = new ComputerBall(txtreBall, "computerBall");
-        computerBall.sprite.setSize(100,100);
-        computerBall.setPos(1,0);
+        computerBall.sprite.setSize(75,75);
+        computerBall.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, MyGdxGame.HEIGHT/2, 0));
+        //computerBall.setMovementPattern(new SquareMovement(MyGdxGame.WIDTH/5, 2*MyGdxGame.HEIGHT/4));
         addActor(computerBall);
     }
 
@@ -61,11 +63,13 @@ public class SingleplayerScreen extends AbstractScreen {
             playerBall.setSpeedMultiplier(1);
         }
 
+        act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        draw();
+
+        //Must be here or it will collide sprites at default location
         if (checkCollision()){
             ScreenManager.getInstance().showScreen(ScreenEnum.SINGLE_PLAYER);
         }
-        act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        draw();
     }
 
     @Override
