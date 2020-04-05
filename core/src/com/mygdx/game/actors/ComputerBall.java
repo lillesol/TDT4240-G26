@@ -21,21 +21,22 @@ import java.lang.Math.*;
 
 public class ComputerBall extends Actor{
     public Sprite sprite;
+
+
     private MovementPattern movementPattern;
-    public float speedMultiplier;
+    private float speedMultiplier;
 
     public ComputerBall(Texture texture, final String actorName) {
         sprite = new Sprite(texture);
-        movementPattern = new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, MyGdxGame.HEIGHT/3, 270);
-        //movementPattern = new SquareMovement(MyGdxGame.WIDTH/5, 0);
-        setPos(sprite.getX(), sprite.getY());
-
         speedMultiplier = 1;
-
     }
 
     public void setSpeedMultiplier(float speedMultiplier) {
         this.speedMultiplier = speedMultiplier;
+    }
+
+    public void setMovementPattern(MovementPattern movementPattern) {
+        this.movementPattern = movementPattern;
     }
 
     public void setPos(float x, float y) {
@@ -47,7 +48,8 @@ public class ComputerBall extends Actor{
     public void move(float delta){
         float multipliedDelta = delta*this.speedMultiplier;
         float[] position = movementPattern.move(multipliedDelta);
-        setPos(position[0],position[1]);
+        //MAYBE MOVE TO SPRITE ADJUSTMENT TO setPos
+        setPos(position[0]+(sprite.getWidth()/2),position[1]-(sprite.getHeight()/2));
 
     }
 
