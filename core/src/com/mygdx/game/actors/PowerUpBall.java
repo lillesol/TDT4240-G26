@@ -1,4 +1,5 @@
 package com.mygdx.game.actors;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -7,20 +8,18 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.actors.movement_patterns.CircularMovement;
 import com.mygdx.game.actors.movement_patterns.MovementPattern;
 
-public class ComputerBall extends Actor{
-    public Sprite sprite;
+public class PowerUpBall extends Actor {
+    private Sprite sprite;
     private MovementPattern movementPattern;
     private float speedMultiplier;
 
-    public ComputerBall(Texture texture, final String actorName) {
-        sprite = new Sprite(texture);
-        movementPattern = new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, MyGdxGame.HEIGHT/3, 270);
+    public PowerUpBall(Texture texture, final String actorName) {
+        setSprite(new Sprite(texture));
+        setMovementPattern(new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, MyGdxGame.HEIGHT/3, 270));
         //movementPattern = new SquareMovement(MyGdxGame.WIDTH/5, 0);
-        setPos(sprite.getX(), sprite.getY());
+        setPos(getSprite().getX(), getSprite().getY());
 
         setSpeedMultiplier(1);
-
-
     }
 
     public void setSpeedMultiplier(float speedMultiplier) {
@@ -28,14 +27,14 @@ public class ComputerBall extends Actor{
     }
 
     public void setPos(float x, float y) {
-        sprite.setPosition(x,y);
-        setBounds(sprite.getX(),sprite.getY(),sprite.getWidth(),sprite.getHeight());
+        getSprite().setPosition(x,y);
+        setBounds(getSprite().getX(), getSprite().getY(), getSprite().getWidth(), getSprite().getHeight());
 
     }
 
     public void move(float delta){
         float multipliedDelta = delta* this.getSpeedMultiplier();
-        float[] position = movementPattern.move(multipliedDelta);
+        float[] position = getMovementPattern().move(multipliedDelta);
         setPos(position[0],position[1]);
 
     }
@@ -48,11 +47,27 @@ public class ComputerBall extends Actor{
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        sprite.draw(batch);
+        getSprite().draw(batch);
+    }
+
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+    }
+
+    public MovementPattern getMovementPattern() {
+        return movementPattern;
+    }
+
+    public void setMovementPattern(MovementPattern movementPattern) {
+        this.movementPattern = movementPattern;
     }
 
     public float getSpeedMultiplier() {
         return speedMultiplier;
     }
 }
-
