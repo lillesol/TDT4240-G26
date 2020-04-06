@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.actors.movement_patterns.CircularMovement;
 import com.mygdx.game.actors.movement_patterns.MovementPattern;
-import com.mygdx.game.actors.movement_patterns.SquareMovement;
 
 import java.lang.Math.*;
 

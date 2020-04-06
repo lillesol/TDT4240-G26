@@ -8,9 +8,10 @@ public class ScreenManager {
     private static ScreenManager instance;
 
     private MyGdxGame game;
-
+    public AssetManager manager;
     private ScreenManager() {
         super();
+        manager = new AssetManager();
     }
 
     public static ScreenManager getInstance() {
@@ -35,5 +36,9 @@ public class ScreenManager {
         if(currentScreen != null) {
             currentScreen.dispose();
         }
+    }
+
+    public AssetManager getAssetManager() {
+        return this.manager;
     }
 }

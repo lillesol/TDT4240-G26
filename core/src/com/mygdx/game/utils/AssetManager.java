@@ -1,20 +1,43 @@
 package com.mygdx.game.utils;
 
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Logger;
 
-public class AssetLoader {
+import java.util.concurrent.TimeUnit;
 
-    private static final Logger log = new Logger(AssetLoader.class.getName(), Logger.DEBUG);
+public class AssetManager {
 
-    public final AssetManager manager = new AssetManager();
+    private static final Logger log = new Logger(AssetManager.class.getName(), Logger.DEBUG);
 
-    public final String skin = "quantum-horizon/skin/quantum-horizon-ui.json";
+    public final com.badlogic.gdx.assets.AssetManager manager = new com.badlogic.gdx.assets.AssetManager();
 
+    // Skin
+    final String skin = "quantum-horizon/skin/quantum-horizon-ui.json";
 
-    public void queueAddSkin() {
+    public void loadSkins() {
         manager.load(skin, Skin.class);
+
+        manager.finishLoading();
     }
+
+    // Textures
+    public void loadTextures() {
+
+    }
+
+    // Music
+    public void loadMusic() {
+    }
+
+    // Sounds
+    public void loadSounds() {
+
+    }
+
+    // Font
+    public void loadFonts() {
+    }
+
+
 }
