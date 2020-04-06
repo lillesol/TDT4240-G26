@@ -28,7 +28,7 @@ public class SingleplayerScreen extends AbstractScreen {
     private PlayerBall playerBall;
     private ComputerBall computerBall;
     private Texture txtreBall;
-
+    private Label score;
     public SingleplayerScreen() {
         super();
         txtreBall = new Texture(Gdx.files.internal("quantum-horizon/raw/globe_3.png"));
