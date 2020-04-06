@@ -10,5 +10,4 @@ public abstract class MovementPattern {
     }
 
     public abstract float[] move(float delta);
-
 }
