@@ -29,6 +29,7 @@ public class SingleplayerScreen extends AbstractScreen {
     private ComputerBall computerBall;
     private Texture txtreBall;
     private Label score;
+
     public SingleplayerScreen() {
         super();
         txtreBall = new Texture(Gdx.files.internal("quantum-horizon/raw/globe_3.png"));
@@ -40,10 +41,14 @@ public class SingleplayerScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
+        Table table = new Table();
+        table.setFillParent(true);
+        table.setDebug(true);
+
         // Adding playerBall
         playerBall = new PlayerBall(txtreBall, "playerBall");
-        playerBall.sprite.setSize(75, 75);
-        playerBall.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH / 5, MyGdxGame.WIDTH / 4, MyGdxGame.HEIGHT / 3, 90));
+        playerBall.setSize(75,75);
+        playerBall.setMovementPattern(new CircularMovement(playerBall,MyGdxGame.WIDTH / 5, 7*(MyGdxGame.WIDTH / 20), MyGdxGame.HEIGHT / 3, 190));
         // playerBall.setMovementPattern( new SquareMovement(MyGdxGame.WIDTH/5,MyGdxGame.HEIGHT/4));
         playerBall.sprite.setColor(0, 1, 0, 1);
         playerBall.getMovementPattern().getVisualMovementPattern().setColor(playerBall.sprite.getColor());
@@ -52,7 +57,7 @@ public class SingleplayerScreen extends AbstractScreen {
         // Adding computerBall
         computerBall = new ComputerBall(txtreBall, "computerBall");
         computerBall.sprite.setSize(75, 75);
-        computerBall.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH / 5, MyGdxGame.WIDTH / 4, MyGdxGame.HEIGHT / 2, 0));
+        computerBall.setMovementPattern(new CircularMovement(computerBall,MyGdxGame.WIDTH / 5, 7*(MyGdxGame.WIDTH /20), MyGdxGame.HEIGHT / 2, 0));
         // computerBall.setMovementPattern(new SquareMovement(MyGdxGame.WIDTH/5, 2*MyGdxGame.HEIGHT/4));
         computerBall.getMovementPattern().getVisualMovementPattern().setColor(computerBall.getSprite().getColor());
         addActor(computerBall);
@@ -60,7 +65,8 @@ public class SingleplayerScreen extends AbstractScreen {
         //Adding ScoreBoard
         Skin skin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
         score = new Label(String.valueOf(playerBall.score), skin);
-        score.setPosition(300, 700);
+        //score.setOrigin(MyGdxGame.WIDTH/5, 7*MyGdxGame.HEIGHT/10);
+        score.setPosition(MyGdxGame.WIDTH/4, 7*MyGdxGame.HEIGHT/10);
         addActor(score);
     }
 
@@ -68,7 +74,7 @@ public class SingleplayerScreen extends AbstractScreen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        score.setText(playerBall.score);
+        score.setText((int)(playerBall.score-computerBall.score));
         if (Gdx.input.isTouched()) {
             playerBall.setSpeedMultiplier(5);
         } else {

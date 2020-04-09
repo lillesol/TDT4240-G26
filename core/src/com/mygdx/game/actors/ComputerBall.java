@@ -24,10 +24,14 @@ public class ComputerBall extends Actor{
     public Sprite sprite;
     private MovementPattern movementPattern;
     private float speedMultiplier;
+    public float score;
 
     public ComputerBall(Texture texture, final String actorName) {
         sprite = new Sprite(texture);
+        sprite.setPosition(getX(),getY());
+        setSize(sprite.getWidth(),sprite.getHeight());
         speedMultiplier = 1;
+        score = 0;
     }
 
     public Sprite getSprite() {
@@ -46,7 +50,15 @@ public class ComputerBall extends Actor{
         this.movementPattern = movementPattern;
     }
 
-    public void setPos(float x, float y) {
+    @Override
+    public void setSize(float width, float height) {
+        super.setSize(width, height);
+        sprite.setSize(width,height);
+    }
+
+    @Override
+    public void setPosition(float x, float y) {
+        super.setPosition(x,y);
         sprite.setPosition(x,y);
         setBounds(sprite.getX(),sprite.getY(),sprite.getWidth(),sprite.getHeight());
     }
@@ -55,11 +67,12 @@ public class ComputerBall extends Actor{
         float multipliedDelta = delta*this.speedMultiplier;
         float[] position = movementPattern.move(multipliedDelta);
         //MAYBE MOVE TO SPRITE ADJUSTMENT TO setPos
-        setPos(position[0]+(sprite.getWidth()/2),position[1]-(sprite.getHeight()/2));
+        setPosition(position[0]-(sprite.getWidth()/2),position[1]-(sprite.getHeight()/2));
     }
 
     @Override
     public void act(float delta) {
+        this.score += delta;
         super.act(delta);
         move(delta);
     }

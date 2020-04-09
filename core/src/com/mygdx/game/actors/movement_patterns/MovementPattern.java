@@ -7,6 +7,8 @@ public abstract class MovementPattern{
 
     private float centerX;
     private float centerY;
+    private float currentX;
+    private float currentY;
 
     public MovementPattern(){
 

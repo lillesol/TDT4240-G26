@@ -15,23 +15,34 @@ public class CircularMovement extends MovementPattern {
     private float centerY;
     private float currentAngle;
     private ShapeRenderer visualMovementPattern;
+    private Actor actor;
 
-    public CircularMovement(float radius, float centerX, float centerY, float currentAngle){
+    public CircularMovement(Actor actor, float radius, float centerX, float centerY, float initialAngle){
         this.radius = radius;
         this.centerX = centerX;
         this.centerY = centerY;
-        this.currentAngle = currentAngle;
+        this.actor = actor;
+        currentAngle = initialAngle;
         visualMovementPattern = new ShapeRenderer();
+        synchronize();
     }
 
     public ShapeRenderer getVisualMovementPattern() {
         return visualMovementPattern;
     }
 
-    @Override
+    public void setCurrentAngle(float currentAngle) {
+        this.currentAngle = currentAngle;
+    }
+
+    public void synchronize(){
+        actor.setPosition(centerX + (float)Math.cos(currentAngle)*radius, centerY + (float)Math.sin(currentAngle)*radius);
+    }
+
+   // @Override
     public float[] move(float delta){
         float x = centerX + (float)Math.cos(currentAngle + delta)*radius;
-        float y = centerY + (float)Math.sin(currentAngle + delta)*radius;
+        float y= centerY + (float)Math.sin(currentAngle + delta)*radius;
         currentAngle+= delta;
         return new float[] {x,y};
     }
@@ -41,7 +52,7 @@ public class CircularMovement extends MovementPattern {
         visualMovementPattern.begin(ShapeRenderer.ShapeType.Point);
         float angle =0;
         for (float i=0; i-1<360; i+=0.05){
-            float x = centerX+75 + (float)Math.cos(angle + i)*(radius);
+            float x = centerX + (float)Math.cos(angle + i)*(radius);
             float y = centerY + (float)Math.sin(angle + i)*(radius);
             angle+=i;
             visualMovementPattern.point(x,y,0);

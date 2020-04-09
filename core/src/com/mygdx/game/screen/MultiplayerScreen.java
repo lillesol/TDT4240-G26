@@ -33,14 +33,13 @@ public class MultiplayerScreen extends AbstractScreen {
     }
 
     //For mobile version with real touch IF
-    // "i" denotes the number of possible registered fingers at once
+    // "i" denotes finger id fingers at once
     public void multipleInputUpdate(){
-        for (int i=1 ; i<3; i++ ) {
-            if (Gdx.input.isTouched(i)) {
-                if (Gdx.input.getY(i) > MyGdxGame.HEIGHT/2){
+        for (int id=1 ; id<3; id++ ) {
+            if (Gdx.input.isTouched(id)) {
+                if (Gdx.input.getY(id) > MyGdxGame.HEIGHT/2){
                     playerBall.setSpeedMultiplier(5);
-                }
-                if (Gdx.input.getY(i) < MyGdxGame.HEIGHT/2) {
+                } else if (Gdx.input.getY(id) < MyGdxGame.HEIGHT/2) {
                     player2Ball.setSpeedMultiplier(5);
                 }
             }else {
@@ -71,7 +70,7 @@ public class MultiplayerScreen extends AbstractScreen {
         //Adding playerBall
         playerBall = new PlayerBall(txtreBall, "playerBall");
         playerBall.sprite.setSize(75,75);
-        playerBall.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, 2*MyGdxGame.HEIGHT/10, 0));
+        playerBall.setMovementPattern(new CircularMovement(playerBall,MyGdxGame.WIDTH/5, 4*(MyGdxGame.WIDTH/10), 2*MyGdxGame.HEIGHT/10, 0));
         playerBall.sprite.setColor(0,1,0,1);
         playerBall.getMovementPattern().getVisualMovementPattern().setColor(playerBall.sprite.getColor());
         addActor(playerBall);
@@ -80,14 +79,14 @@ public class MultiplayerScreen extends AbstractScreen {
         player2Ball = new PlayerBall(txtreBall, "player2Ball");
         player2Ball.sprite.setColor(0,0,1,1);
         player2Ball.sprite.setSize(75,75);
-        player2Ball.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, 6*MyGdxGame.HEIGHT/10, 0));
+        player2Ball.setMovementPattern(new CircularMovement(player2Ball,MyGdxGame.WIDTH/5, 4*(MyGdxGame.WIDTH/10), 6*MyGdxGame.HEIGHT/10, 0));
         player2Ball.getMovementPattern().getVisualMovementPattern().setColor(player2Ball.sprite.getColor());
         addActor(player2Ball);
 
         //Adding computerBall
         computerBall = new ComputerBall(txtreBall, "computerBall");
         computerBall.sprite.setSize(75,75);
-        computerBall.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, 4*MyGdxGame.HEIGHT/10, 270));
+        computerBall.setMovementPattern(new CircularMovement(computerBall,MyGdxGame.WIDTH/5, 4*(MyGdxGame.WIDTH/10), 4*MyGdxGame.HEIGHT/10, 270));
         computerBall.sprite.setColor(1,0,0,1);
         computerBall.getMovementPattern().getVisualMovementPattern().setColor(computerBall.sprite.getColor());
 
