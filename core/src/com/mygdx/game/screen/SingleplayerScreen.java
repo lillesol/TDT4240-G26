@@ -40,26 +40,24 @@ public class SingleplayerScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
-        System.out.println("done");
         // Adding playerBall
         playerBall = new PlayerBall(txtreBall, "playerBall");
         playerBall.sprite.setSize(75, 75);
-        playerBall.setMovementPattern(
-                new CircularMovement(MyGdxGame.WIDTH / 5, MyGdxGame.WIDTH / 4, MyGdxGame.HEIGHT / 3, 90));
-        // playerBall.setMovementPattern( new SquareMovement(MyGdxGame.WIDTH/5,
-        // MyGdxGame.HEIGHT/4));
+        playerBall.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH / 5, MyGdxGame.WIDTH / 4, MyGdxGame.HEIGHT / 3, 90));
+        // playerBall.setMovementPattern( new SquareMovement(MyGdxGame.WIDTH/5,MyGdxGame.HEIGHT/4));
         playerBall.sprite.setColor(0, 1, 0, 1);
+        playerBall.getMovementPattern().getVisualMovementPattern().setColor(playerBall.sprite.getColor());
         addActor(playerBall);
 
         // Adding computerBall
         computerBall = new ComputerBall(txtreBall, "computerBall");
         computerBall.sprite.setSize(75, 75);
-        computerBall.setMovementPattern(
-                new CircularMovement(MyGdxGame.WIDTH / 5, MyGdxGame.WIDTH / 4, MyGdxGame.HEIGHT / 2, 0));
-        // computerBall.setMovementPattern(new SquareMovement(MyGdxGame.WIDTH/5,
-        // 2*MyGdxGame.HEIGHT/4));
+        computerBall.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH / 5, MyGdxGame.WIDTH / 4, MyGdxGame.HEIGHT / 2, 0));
+        // computerBall.setMovementPattern(new SquareMovement(MyGdxGame.WIDTH/5, 2*MyGdxGame.HEIGHT/4));
+        computerBall.getMovementPattern().getVisualMovementPattern().setColor(computerBall.getSprite().getColor());
         addActor(computerBall);
 
+        //Adding ScoreBoard
         Skin skin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
         score = new Label(String.valueOf(playerBall.score), skin);
         score.setPosition(300, 700);

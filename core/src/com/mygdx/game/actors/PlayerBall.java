@@ -3,20 +3,13 @@ package com.mygdx.game.actors;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.actors.movement_patterns.CircularMovement;
 import com.mygdx.game.actors.movement_patterns.MovementPattern;
-import com.mygdx.game.actors.movement_patterns.SquareMovement;
-
-import java.lang.Math.*;
 
 public class PlayerBall extends Actor {
     public Sprite sprite;
-    private MovementPattern movementPattern;
+    public MovementPattern movementPattern;
     public float speedMultiplier;
     public int score;
     private boolean otherside;
@@ -24,14 +17,17 @@ public class PlayerBall extends Actor {
 
     public PlayerBall(Texture texture, final String actorName) {
         sprite = new Sprite(texture);
-        movementPattern = new CircularMovement(MyGdxGame.WIDTH / 5, MyGdxGame.WIDTH / 4, 0, 90);
+        //movementPattern = new CircularMovement(MyGdxGame.WIDTH / 5, MyGdxGame.WIDTH / 4, 0, 90);
         // movementPattern = new SquareMovement(MyGdxGame.WIDTH/5, 0);
         startpos = new Vector2(sprite.getX(), sprite.getY());
         setPos(startpos.x, startpos.y);
         speedMultiplier = 1;
         score = 0;
         otherside = false;
+    }
 
+    public MovementPattern getMovementPattern() {
+        return movementPattern;
     }
 
     public void setMovementPattern(MovementPattern movementPattern) {
@@ -45,7 +41,6 @@ public class PlayerBall extends Actor {
     public void setPos(float x, float y) {
         sprite.setPosition(x, y);
         setBounds(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
-
     }
 
     public void move(float delta) {
@@ -58,7 +53,6 @@ public class PlayerBall extends Actor {
         if (updateScore(position)) {
             this.score++;
         }
-
     }
 
     private boolean updateScore(float[] pos) {
@@ -81,5 +75,9 @@ public class PlayerBall extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         sprite.draw(batch);
+        batch.end();
+        movementPattern.getVisualMovementPattern().setProjectionMatrix(batch.getProjectionMatrix());
+        movementPattern.renderMovementPattern();
+        batch.begin();
     }
 }

@@ -1,4 +1,5 @@
 package com.mygdx.game.actors;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -21,14 +22,20 @@ import java.lang.Math.*;
 
 public class ComputerBall extends Actor{
     public Sprite sprite;
-
-
     private MovementPattern movementPattern;
     private float speedMultiplier;
 
     public ComputerBall(Texture texture, final String actorName) {
         sprite = new Sprite(texture);
         speedMultiplier = 1;
+    }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    public MovementPattern getMovementPattern() {
+        return movementPattern;
     }
 
     public void setSpeedMultiplier(float speedMultiplier) {
@@ -42,7 +49,6 @@ public class ComputerBall extends Actor{
     public void setPos(float x, float y) {
         sprite.setPosition(x,y);
         setBounds(sprite.getX(),sprite.getY(),sprite.getWidth(),sprite.getHeight());
-
     }
 
     public void move(float delta){
@@ -50,7 +56,6 @@ public class ComputerBall extends Actor{
         float[] position = movementPattern.move(multipliedDelta);
         //MAYBE MOVE TO SPRITE ADJUSTMENT TO setPos
         setPos(position[0]+(sprite.getWidth()/2),position[1]-(sprite.getHeight()/2));
-
     }
 
     @Override
@@ -62,6 +67,10 @@ public class ComputerBall extends Actor{
     @Override
     public void draw(Batch batch, float parentAlpha) {
         sprite.draw(batch);
+        batch.end();
+        movementPattern.getVisualMovementPattern().setProjectionMatrix(batch.getProjectionMatrix());
+        movementPattern.renderMovementPattern();
+        batch.begin();
     }
 }
 

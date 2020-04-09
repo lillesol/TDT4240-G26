@@ -39,16 +39,17 @@ public class MultiplayerScreen extends AbstractScreen {
         //Adding playerBall
         playerBall = new PlayerBall(txtreBall, "playerBall");
         playerBall.sprite.setSize(75,75);
-        playerBall.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, 3*MyGdxGame.HEIGHT/10, 90));
+        playerBall.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, 2*MyGdxGame.HEIGHT/10, 0));
         playerBall.sprite.setColor(0,1,0,1);
+        playerBall.getMovementPattern().getVisualMovementPattern().setColor(playerBall.sprite.getColor());
         addActor(playerBall);
 
         //Adding player2Ball
         player2Ball = new PlayerBall(txtreBall, "player2Ball");
         player2Ball.sprite.setColor(0,0,1,1);
         player2Ball.sprite.setSize(75,75);
-        player2Ball.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, 5*MyGdxGame.HEIGHT/10, 180));
-
+        player2Ball.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, 6*MyGdxGame.HEIGHT/10, 0));
+        player2Ball.getMovementPattern().getVisualMovementPattern().setColor(player2Ball.sprite.getColor());
         addActor(player2Ball);
 
         //Adding computerBall
@@ -56,6 +57,7 @@ public class MultiplayerScreen extends AbstractScreen {
         computerBall.sprite.setSize(75,75);
         computerBall.setMovementPattern(new CircularMovement(MyGdxGame.WIDTH/5, MyGdxGame.WIDTH/4, 4*MyGdxGame.HEIGHT/10, 270));
         computerBall.sprite.setColor(1,0,0,1);
+        computerBall.getMovementPattern().getVisualMovementPattern().setColor(computerBall.sprite.getColor());
 
         addActor(computerBall);
     }
@@ -77,6 +79,8 @@ public class MultiplayerScreen extends AbstractScreen {
         }
         act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         draw();
+
+        // Must be here or it will collide sprites at default location
         if (checkPlayer1Collision()){
             ScreenManager.getInstance().showScreen(ScreenEnum.MULTI_PLAYER);
         }else if(checkPlayer2collision()){
