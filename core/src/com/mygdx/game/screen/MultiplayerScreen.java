@@ -32,6 +32,38 @@ public class MultiplayerScreen extends AbstractScreen {
         return (player2Ball.sprite.getBoundingRectangle().overlaps(computerBall.sprite.getBoundingRectangle()));
     }
 
+    //For mobile version with real touch IF
+    // "i" denotes the number of possible registered fingers at once
+    public void multipleInputUpdate(){
+        for (int i=1 ; i<3; i++ ) {
+            if (Gdx.input.isTouched(i)) {
+                if (Gdx.input.getY(i) > MyGdxGame.HEIGHT/2){
+                    playerBall.setSpeedMultiplier(5);
+                }
+                if (Gdx.input.getY(i) < MyGdxGame.HEIGHT/2) {
+                    player2Ball.setSpeedMultiplier(5);
+                }
+            }else {
+                playerBall.setSpeedMultiplier(1);
+                player2Ball.setSpeedMultiplier(1);
+            }
+        }
+    }
+
+    public void singleInputUpdate(){
+        if (Gdx.input.isTouched()) {
+            if (Gdx.input.getY() > MyGdxGame.HEIGHT/2){
+                playerBall.setSpeedMultiplier(5);
+            }
+            if (Gdx.input.getY() < MyGdxGame.HEIGHT/2) {
+                player2Ball.setSpeedMultiplier(5);
+            }
+        }else {
+            playerBall.setSpeedMultiplier(1);
+            player2Ball.setSpeedMultiplier(1);
+        }
+    }
+
     @Override
     public void buildStage() {
         System.out.println(this.getClass());
@@ -66,17 +98,12 @@ public class MultiplayerScreen extends AbstractScreen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if (Gdx.input.isTouched()){
-            if (Gdx.input.getY() > MyGdxGame.HEIGHT/2){
-                playerBall.setSpeedMultiplier(5);
-            }
-            if (Gdx.input.getY() < MyGdxGame.HEIGHT/2) {
-                player2Ball.setSpeedMultiplier(5);
-            }
-        }else {
-            playerBall.setSpeedMultiplier(1);
-            player2Ball.setSpeedMultiplier(1);
-        }
+
+        //only for desktop driven programs
+        singleInputUpdate();
+        //for version on mobile
+        //multipleInputUpdate();
+
         act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         draw();
 
