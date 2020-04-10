@@ -64,7 +64,7 @@ public class SingleplayerScreen extends AbstractScreen {
 
         //Adding ScoreBoard
         Skin skin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
-        score = new Label(String.valueOf(playerBall.score), skin);
+        score = new Label("Highcore"+String.valueOf(playerBall.score), skin);
         //score.setOrigin(MyGdxGame.WIDTH/5, 7*MyGdxGame.HEIGHT/10);
         score.setPosition(MyGdxGame.WIDTH/4, 7*MyGdxGame.HEIGHT/10);
         addActor(score);

@@ -1,9 +1,10 @@
 package com.mygdx.game.screen;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.actors.ComputerBall;
 import com.mygdx.game.actors.PlayerBall;
@@ -16,6 +17,7 @@ public class MultiplayerScreen extends AbstractScreen {
     private PlayerBall playerBall;
     private PlayerBall player2Ball;
     private ComputerBall computerBall;
+    private Label scoreboard;
 
     private Texture txtreBall;
 
@@ -89,14 +91,24 @@ public class MultiplayerScreen extends AbstractScreen {
         computerBall.setMovementPattern(new CircularMovement(computerBall,MyGdxGame.WIDTH/5, 4*(MyGdxGame.WIDTH/10), 4*MyGdxGame.HEIGHT/10, 270));
         computerBall.sprite.setColor(1,0,0,1);
         computerBall.getMovementPattern().getVisualMovementPattern().setColor(computerBall.sprite.getColor());
-
         addActor(computerBall);
+
+        //Adding Score
+        Skin skin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
+        scoreboard = new Label(String.valueOf(playerBall.score + String.valueOf(player2Ball.score)), skin);
+        //score.setOrigin(MyGdxGame.WIDTH/5, 7*MyGdxGame.HEIGHT/10);
+        scoreboard.setPosition(MyGdxGame.WIDTH/3, 4*MyGdxGame.HEIGHT/10);
+
+        addActor(scoreboard);
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //update scoreboard
+        scoreboard.setText(String.valueOf((int)(playerBall.score-computerBall.score))+" : "+String.valueOf((int)(player2Ball.score-computerBall.score)));
+
 
         //only for desktop driven programs
         singleInputUpdate();
