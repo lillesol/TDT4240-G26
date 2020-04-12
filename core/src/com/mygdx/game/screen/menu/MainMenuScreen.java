@@ -25,13 +25,15 @@ public class MainMenuScreen extends AbstractScreen {
         Skin skin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
         TextButton btnNewGame = new TextButton("New Game", skin);
         TextButton btnPreferences = new TextButton("Preferences", skin);
+        TextButton btnGameRules = new TextButton("Game Rules", skin);
         TextButton btnQuit = new TextButton("Quit", skin);
-
 
         table.add(btnNewGame).fillX().uniformX();
         table.row().pad(10,0,10,0);
         table.add(btnPreferences).fillX().uniformX();
         table.row();
+        table.add(btnGameRules).fillX().uniformX();
+        table.row().pad(10,0,0,0);
         table.add(btnQuit).fillX().uniformX();
 
         // Refactor this to a Factory class for UI elements and listeners?
@@ -47,6 +49,12 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ScreenManager.getInstance().showScreen(ScreenEnum.PREFERENCES);
+            }
+        });
+        btnGameRules.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ScreenManager.getInstance().showScreen(ScreenEnum.GAME_RULES);
             }
         });
         btnQuit.addListener(new ChangeListener() {
