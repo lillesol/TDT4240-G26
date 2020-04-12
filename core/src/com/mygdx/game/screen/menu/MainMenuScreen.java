@@ -2,10 +2,12 @@ package com.mygdx.game.screen.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.screen.AbstractScreen;
 import com.mygdx.game.utils.ScreenEnum;
@@ -35,10 +37,14 @@ public class MainMenuScreen extends AbstractScreen {
         TextButton btnLeaderboard = new TextButton("Leaderboard", skin);
         TextButton btnLbTest = new TextButton("Leaderboard Test Random Score", skin);
         TextButton btnQuit = new TextButton("Quit", skin);
+        final Label onlineStatusLabael = new Label("Please sign into Google Play Services", skin);
+        onlineStatusLabael.setWrap(true);
+        onlineStatusLabael.setAlignment(Align.center);
 
         // If user is already signed in
         if(MyGdxGame.gpgs.isSignedIn()){
             btnSignIn.setText("Sign out");
+            onlineStatusLabael.setText("Signed into Google Play Services");
         }
 
         table.add(btnNewGame).fillX().uniformX();
@@ -52,6 +58,8 @@ public class MainMenuScreen extends AbstractScreen {
         table.add(btnSignIn).fillX().uniformX();
         table.row().pad(10,0,10,0);
         table.add(btnQuit).fillX().uniformX();
+        table.row().pad(20,0,10,0);
+        table.add(onlineStatusLabael).fillX().uniformX();
 
         // Refactor this to a Factory class for UI elements and listeners?
         addActor(table);
@@ -71,7 +79,13 @@ public class MainMenuScreen extends AbstractScreen {
         btnLeaderboard.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                MyGdxGame.gpgs.onShowLeaderboardsRequested();
+                if(MyGdxGame.gpgs.isSignedIn()) {
+                    MyGdxGame.gpgs.onShowLeaderboardsRequested();
+                }else {
+                    btnSignIn.setText("Sign in");
+                    onlineStatusLabael.setText("Looks like you haven't signed in successfully after all.. Please try again.");
+                    return;
+                }
             }
         });
         btnLbTest.addListener(new ChangeListener() {
@@ -90,9 +104,11 @@ public class MainMenuScreen extends AbstractScreen {
                 if(!MyGdxGame.gpgs.isSignedIn()) {
                     MyGdxGame.gpgs.startSignInIntent();
                     btnSignIn.setText("Sign out");
+                    onlineStatusLabael.setText("Signed into Google Play Services");
                 }else {
                     MyGdxGame.gpgs.signOut();
                     btnSignIn.setText("Sign in");
+                    onlineStatusLabael.setText("Please sign into Google Play Services");
                 }
             }
         });
