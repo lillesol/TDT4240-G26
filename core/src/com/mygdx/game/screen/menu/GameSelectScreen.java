@@ -27,11 +27,15 @@ public class GameSelectScreen extends AbstractScreen {
         table.setDebug(true);
 
         Skin skin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
-        TextButton btnSingleplayer = new TextButton("Single player", skin);
-        TextButton btnMultiplayer = new TextButton("Two-player", skin);
+        TextButton btnSingleplayer = new TextButton("SINGLE PLAYER", skin);
+        TextButton btnMultiplayer = new TextButton("TWO-PLAYER", skin);
+        TextButton btnMainMenu = new TextButton("< MAIN MENU", skin);
+
         table.add(btnSingleplayer).fillX().uniformX();
-        table.row().pad(10,0,10,0);
+        table.row().pad(10,0,0,0);
         table.add(btnMultiplayer).fillX().uniformX();
+        table.row().pad(20,0,0,0);
+        table.add(btnMainMenu).fillX().uniformX();
 
 
         btnSingleplayer.addListener(new ChangeListener() {
@@ -40,13 +44,20 @@ public class GameSelectScreen extends AbstractScreen {
                 ScreenManager.getInstance().showScreen(ScreenEnum.SINGLE_PLAYER);
             }
         });
-
         btnMultiplayer.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ScreenManager.getInstance().showScreen(ScreenEnum.MULTI_PLAYER);
             }
         });
+        btnMainMenu.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+            }
+        });
+
+
         addActor(table);
     }
 

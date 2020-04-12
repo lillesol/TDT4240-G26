@@ -38,18 +38,18 @@ public class GameRulesScreen extends AbstractScreen {
                 "\n" +
                 "\n5. GOOD LUCK!", skin);
         descriptionParagraph.setWrap(true);
-        TextButton btnOk = new TextButton("< MAIN MENU", skin);
+        TextButton btnMainMenu = new TextButton("< MAIN MENU", skin);
 
         table.add(descriptionHeader).fillX().uniformX();
-        table.row().pad(10,0,10,0);
+        table.row().pad(20,0,0,0);
         table.add(descriptionParagraph).fillX().uniformX();
-        table.row().pad(10,0,10,0);
-        table.add(btnOk).fillX().uniformX();
+        table.row().pad(20,0,0,0);
+        table.add(btnMainMenu).fillX().uniformX();
 
         // Refactor this to a Factory class for UI elements and listeners?
         addActor(table);
 
-        btnOk.addListener(new ChangeListener() {
+        btnMainMenu.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
