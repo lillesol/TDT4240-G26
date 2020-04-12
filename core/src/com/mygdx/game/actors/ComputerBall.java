@@ -1,5 +1,4 @@
 package com.mygdx.game.actors;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -7,18 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.actors.movement_patterns.CircularMovement;
 import com.mygdx.game.actors.movement_patterns.MovementPattern;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.actors.movement_patterns.CircularMovement;
-import com.mygdx.game.actors.movement_patterns.MovementPattern;
-import com.mygdx.game.actors.movement_patterns.SquareMovement;
-
-import java.lang.Math.*;
 
 public class ComputerBall extends Actor{
     public Sprite sprite;
@@ -64,7 +51,7 @@ public class ComputerBall extends Actor{
     }
 
     public void move(float delta){
-        float multipliedDelta = delta*this.speedMultiplier;
+        float multipliedDelta = delta* this.getSpeedMultiplier();
         float[] position = movementPattern.move(multipliedDelta);
         //MAYBE MOVE TO SPRITE ADJUSTMENT TO setPos
         setPosition(position[0]-(sprite.getWidth()/2),position[1]-(sprite.getHeight()/2));
@@ -84,6 +71,10 @@ public class ComputerBall extends Actor{
         movementPattern.getVisualMovementPattern().setProjectionMatrix(batch.getProjectionMatrix());
         movementPattern.renderMovementPattern();
         batch.begin();
+    }
+
+    public float getSpeedMultiplier() {
+        return speedMultiplier;
     }
 }
 
