@@ -17,6 +17,7 @@ public class PowerUps extends PowerUpBall {
     private PowerUpBall powerUpBall;
 
     private PlayerBall playerBall;
+    private PlayerBall player2Ball;
 
     private ComputerBall computerBall;
 
@@ -35,12 +36,10 @@ public class PowerUps extends PowerUpBall {
 
         txtreSprite = new Texture(Gdx.files.internal("powerUpIcons/time.png"));
         powerUpBall = new PowerUpBall(txtreSprite, "computerBall");
-        //setPowerUpBall(new PowerUpBall(txtreSprite, "computerBall"));
-        powerUpBall.getSprite().setSize(80, 80);
+        powerUpBall.getSprite().setSize(60, 60);
         powerUpBall.getSprite().setColor(255,255,255,1);
-        powerUpBall.setMovementPattern(new CircularMovement(getPowerUpBall(), MyGdxGame.WIDTH / 5, 7*(MyGdxGame.WIDTH /20), MyGdxGame.HEIGHT / 2, 0));
+        powerUpBall.setMovementPattern(new CircularMovement(powerUpBall, MyGdxGame.WIDTH / 5, 7*(MyGdxGame.WIDTH /20), MyGdxGame.HEIGHT / 2, 0));
         powerUpBall.getMovementPattern().getVisualMovementPattern().setColor(computerBall.getSprite().getColor());
-
     }
 
     public void addNewBall(Texture txtSpr){
@@ -49,7 +48,7 @@ public class PowerUps extends PowerUpBall {
     }
 
     public void reduceSpeed(){
-        if (checkCollisionPowerUpBall() && (getActorName().equals("Reduce speed"))){
+        if (checkCollisionPowerUpBall() && (getActorName().equals("Reduce speed")) || (checkCollisionPowerUpBallPlayer2() && (getActorName().equals("Reduce speed")))){
             float currSpeed = computerBall.getSpeedMultiplier();
             if (currSpeed == 1) {
                 currSpeed = 1;
@@ -58,39 +57,34 @@ public class PowerUps extends PowerUpBall {
             }
 
             computerBall.setSpeedMultiplier(currSpeed);
-            for (int i = powerUpBalls.size() - 1; i >= 0; i--) {
-                powerUpBalls.get(i).setPosition(1000, 1000);
-                powerUpBalls.get(i).remove();
-            }
+            powerUpBall.addAction(Actions.removeActor());
         }
     }
 
-    public void reduceBall(ComputerBall addComputerBall){
-        if (checkCollisionPowerUpBall() && (getActorName().equals("Reduce ball"))){
+    public void reduceBall(ComputerBall addComputerBall, ComputerBall addComputerBall2){
+        if (checkCollisionPowerUpBall() && (getActorName().equals("Reduce ball")) || checkCollisionPowerUpBallPlayer2() && (getActorName().equals("Reduce ball"))){
             addComputerBall.addAction(Actions.removeActor());
-
-            for (int i = powerUpBalls.size() - 1; i >= 0; i--) {
-                powerUpBalls.get(i).setPosition(1000, 1000);
-                powerUpBalls.get(i).remove();
-            }
+            addComputerBall2.addAction(Actions.removeActor());
+            powerUpBall.addAction(Actions.removeActor());
         }
     }
 
     public void addPowerUpPoint(){
-        if (checkCollisionPowerUpBall() && (getActorName().equals("Increase points"))){
+        if (checkCollisionPowerUpBall() && (getActorName().equals("Increase points")) || checkCollisionPowerUpBallPlayer2() && (getActorName().equals("Increase points"))){
             float currSpeed = computerBall.getSpeedMultiplier();
             playerBall.score = playerBall.score+20;
             computerBall.setSpeedMultiplier(currSpeed);
-            for (int i = powerUpBalls.size() - 1; i >= 0; i--) {
-                powerUpBalls.get(i).setPosition(1000, 1000);
-                powerUpBalls.get(i).remove();
-            }
+            powerUpBall.addAction(Actions.removeActor());
         }
     }
 
 
     public boolean checkCollisionPowerUpBall(){
         return (playerBall.sprite.getBoundingRectangle().overlaps(getPowerUpBall().getSprite().getBoundingRectangle()));
+    }
+
+    public boolean checkCollisionPowerUpBallPlayer2(){
+        return (player2Ball.sprite.getBoundingRectangle().overlaps(getPowerUpBall().getSprite().getBoundingRectangle()));
     }
 
     public PowerUpBall getPowerUpBall() {
@@ -107,5 +101,13 @@ public class PowerUps extends PowerUpBall {
 
     public void setActorName(String actorName) {
         this.actorName = actorName;
+    }
+
+    public PlayerBall getPlayer2Ball() {
+        return player2Ball;
+    }
+
+    public void setPlayer2Ball(PlayerBall player2Ball) {
+        this.player2Ball = player2Ball;
     }
 }
