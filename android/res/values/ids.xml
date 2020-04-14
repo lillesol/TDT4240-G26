@@ -5,13 +5,15 @@ Save this file as res/values/games-ids.xml in your project.
 -->
 <resources>
     <!-- app_id -->
-    <string name="app_id" translatable="false">333037017413</string>
+    <string name="app_id" translatable="false">190408133014</string>
     <!-- package_name -->
     <string name="package_name" translatable="false">com.mygdx.game</string>
-    <!-- achievement YEE BOiii! You get the game logic! -->
-    <string name="achievement_yee_boiii_you_get_the_game_logic" translatable="false">CgkIxbK21NgJEAIQAQ</string>
+    <!-- achievement Game Logic -->
+    <string name="achievement_game_logic" translatable="false">CgkIlpPWqcUFEAIQAQ</string>
     <!-- achievement Horsy Horse! -->
-    <string name="achievement_horsy_horse" translatable="false">CgkIxbK21NgJEAIQAg</string>
+    <string name="achievement_horsy_horse" translatable="false">CgkIlpPWqcUFEAIQAg</string>
+    <!-- achievement Welcome -->
+    <string name="achievement_welcome" translatable="false">CgkIlpPWqcUFEAIQAw</string>
     <!-- leaderboard Leaderboard -->
-    <string name="leaderboard_mainleaderboard" translatable="false">CgkIxbK21NgJEAIQAw</string>
+    <string name="leaderboard_leaderboard" translatable="false">CgkIlpPWqcUFEAIQAA</string>
 </resources>

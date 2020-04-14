@@ -247,12 +247,17 @@ public class AndroidLauncher extends AndroidApplication implements GooglePlayGam
 		// achievement.
 
 		// change requested score to " == X" when testing is done
-		if (requestedScore > 20) {
+		if (requestedScore > 1) {
+			mOutbox.mWelcomeAchievement = true;
+			achievementToast(getString(R.string.achievement_logic));
+		}
+		// change requested score to " == X" when testing is done
+		if (requestedScore > 101) {
 			mOutbox.mLogicAchievement = true;
 			achievementToast(getString(R.string.achievement_logic));
 		}
 		// change requested score to " == X" when testing is done
-		if (requestedScore > 90) {
+		if (requestedScore > 101) {
 			mOutbox.mHorsyAchievement = true;
 			achievementToast(getString(R.string.achievement_horsy));
 		}
@@ -275,9 +280,14 @@ public class AndroidLauncher extends AndroidApplication implements GooglePlayGam
 			System.err.println("Cannot push accomplishments: User not signed in");
 			return;
 		}
+		if (mOutbox.mWelcomeAchievement) {
+			System.out.println("Achievement Logic accomplished!");
+			mAchievementsClient.unlock(getString(R.string.achievement_welcome));
+			mOutbox.mWelcomeAchievement = false;
+		}
 		if (mOutbox.mLogicAchievement) {
 			System.out.println("Achievement Logic accomplished!");
-			mAchievementsClient.unlock(getString(R.string.achievement_yee_boiii_you_get_the_game_logic));
+			mAchievementsClient.unlock(getString(R.string.achievement_game_logic));
 			mOutbox.mLogicAchievement = false;
 		}
 		if (mOutbox.mHorsyAchievement) {
@@ -289,15 +299,16 @@ public class AndroidLauncher extends AndroidApplication implements GooglePlayGam
 
 	@Override
 	public void updateLeaderboards(int finalScore) {
-		mLeaderboardsClient.submitScore(getString(R.string.leaderboard_mainleaderboard), finalScore);
+		mLeaderboardsClient.submitScore(getString(R.string.leaderboard_leaderboard), finalScore);
 	}
 
 	private class AccomplishmentsOutbox {
+		public boolean mWelcomeAchievement = false;
 		public boolean mLogicAchievement = false;
 		public boolean mHorsyAchievement = false;
 
 		boolean isEmpty() {
-			return !mLogicAchievement && !mHorsyAchievement;
+			return !mLogicAchievement && !mHorsyAchievement && !mWelcomeAchievement;
 		}
 
 	}
