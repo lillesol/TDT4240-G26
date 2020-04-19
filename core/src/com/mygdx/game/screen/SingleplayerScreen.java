@@ -29,8 +29,9 @@ public class SingleplayerScreen extends AbstractScreen {
 
     private List<ComputerBall> computerBallArr;
 
-    private Texture txtreBall;
     private GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
+
+    private Texture txtreBall;
     private Texture txtreTime;
     private Texture txtrePoints;
     private Texture txtreReduce;
@@ -41,11 +42,12 @@ public class SingleplayerScreen extends AbstractScreen {
 
     public SingleplayerScreen() {
         super();
-        txtreBall = assMan.manager.get(assMan.BALL_TEXTURE);
-        txtreBall = new Texture(Gdx.files.internal("quantum-horizon/raw/globe_3.png"));
-        txtreTime = new Texture(Gdx.files.internal("powerUpIcons/time.png"));
-        txtrePoints = new Texture(Gdx.files.internal("powerUpIcons/point.png"));
-        txtreReduce = new Texture(Gdx.files.internal("powerUpIcons/reduce.png"));
+        int testint = assMan.manager.getLoadedAssets();
+        System.out.println(testint);
+        txtreBall = assMan.manager.get(assMan.TEXTURE_BALL);
+        txtrePoints = assMan.manager.get(assMan.TEXTURE_POWERUP_POINTS);
+        txtreReduce = assMan.manager.get(assMan.TEXTURE_POWERUP_REDUCE);
+        txtreTime = assMan.manager.get(assMan.TEXTURE_POWERUP_TIME);
     }
 
     public boolean checkCollision(ComputerBall computerBall) {
@@ -134,7 +136,7 @@ public class SingleplayerScreen extends AbstractScreen {
         powerUps.getPowerUpBall().getMovementPattern().getVisualMovementPattern().setColor(computerBall.getSprite().getColor());
 
         //Adding ScoreBoard
-        Skin skin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
+        Skin skin = assMan.manager.get(assMan.SKIN);
         score = new Label("Highcore: "+String.valueOf(playerBall.score), skin);
         //score.setOrigin(MyGdxGame.WIDTH/5, 7*MyGdxGame.HEIGHT/10);
         score.setPosition(MyGdxGame.WIDTH/4, 7*MyGdxGame.HEIGHT/10);

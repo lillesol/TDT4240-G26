@@ -1,14 +1,13 @@
 package com.mygdx.game.utils;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.Logger;
 
 public class GeoRushAssetManager {
 
-    private static final Logger log = new Logger(GeoRushAssetManager.class.getName(), Logger.DEBUG);
 
     public final AssetManager manager = new AssetManager();
 
@@ -20,10 +19,16 @@ public class GeoRushAssetManager {
     }
 
     // Textures
-    public final String BALL_TEXTURE = "quantum-horizon/raw/globe_3.png";
+    public final String TEXTURE_BALL = "quantum-horizon/raw/globe_3.png";
+    public final String TEXTURE_POWERUP_TIME = "powerUpIcons/time.png";
+    public final String TEXTURE_POWERUP_POINTS = "powerUpIcons/point.png";
+    public final String TEXTURE_POWERUP_REDUCE = "powerUpIcons/reduce.png";
 
     public void loadTextures() {
-        manager.load(BALL_TEXTURE, Texture.class);
+        manager.load(TEXTURE_BALL, Texture.class);
+        manager.load(TEXTURE_POWERUP_TIME, Texture.class);
+        manager.load(TEXTURE_POWERUP_POINTS, Texture.class);
+        manager.load(TEXTURE_POWERUP_REDUCE, Texture.class);
     }
 
     // Music

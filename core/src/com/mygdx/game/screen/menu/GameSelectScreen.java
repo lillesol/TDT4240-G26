@@ -9,12 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.screen.AbstractScreen;
+import com.mygdx.game.utils.GeoRushAssetManager;
 import com.mygdx.game.utils.ScreenEnum;
 import com.mygdx.game.utils.ScreenManager;
 
 
 public class GameSelectScreen extends AbstractScreen {
-
+    private GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
     public GameSelectScreen() {
         super();
     }
@@ -26,7 +27,7 @@ public class GameSelectScreen extends AbstractScreen {
         table.setFillParent(true);
         table.setDebug(true);
 
-        Skin skin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
+        Skin skin = assMan.manager.get(assMan.SKIN);
         TextButton btnSingleplayer = new TextButton("Single player", skin);
         TextButton btnMultiplayer = new TextButton("Two-player", skin);
         table.add(btnSingleplayer).fillX().uniformX();

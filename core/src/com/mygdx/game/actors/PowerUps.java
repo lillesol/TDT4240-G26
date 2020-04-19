@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.actors.movement_patterns.CircularMovement;
+import com.mygdx.game.utils.GeoRushAssetManager;
+import com.mygdx.game.utils.ScreenManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,7 @@ public class PowerUps extends PowerUpBall {
 
     private List<PowerUpBall> powerUpBalls = new ArrayList<PowerUpBall>();
 
+    private GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
     private PowerUpBall powerUpBall;
 
     private PlayerBall playerBall;
@@ -34,7 +37,7 @@ public class PowerUps extends PowerUpBall {
 
         this.setActorName(actorName);
 
-        txtreSprite = new Texture(Gdx.files.internal("powerUpIcons/time.png"));
+        txtreSprite = assMan.manager.get(assMan.TEXTURE_POWERUP_TIME);
         powerUpBall = new PowerUpBall(txtreSprite, "computerBall");
         powerUpBall.getSprite().setSize(60, 60);
         powerUpBall.getSprite().setColor(255,255,255,1);

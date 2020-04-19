@@ -10,6 +10,7 @@ import com.mygdx.game.actors.ComputerBall;
 import com.mygdx.game.actors.PlayerBall;
 import com.mygdx.game.actors.PowerUps;
 import com.mygdx.game.actors.movement_patterns.CircularMovement;
+import com.mygdx.game.utils.GeoRushAssetManager;
 import com.mygdx.game.utils.ScreenEnum;
 import com.mygdx.game.utils.ScreenManager;
 
@@ -29,6 +30,8 @@ public class MultiplayerScreen extends AbstractScreen {
 
     private Label scoreboard;
 
+    private GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
+
     private Texture txtreBall;
     private Texture txtreTime;
     private Texture txtrePoints;
@@ -38,10 +41,10 @@ public class MultiplayerScreen extends AbstractScreen {
 
     public MultiplayerScreen() {
         super();
-        txtreBall = new Texture(Gdx.files.internal("quantum-horizon/raw/globe_3.png"));
-        txtreTime = new Texture(Gdx.files.internal("powerUpIcons/time.png"));
-        txtrePoints = new Texture(Gdx.files.internal("powerUpIcons/point.png"));
-        txtreReduce = new Texture(Gdx.files.internal("powerUpIcons/reduce.png"));
+        txtreBall = assMan.manager.get(assMan.TEXTURE_BALL);
+        txtreTime = assMan.manager.get(assMan.TEXTURE_POWERUP_TIME);
+        txtrePoints = assMan.manager.get(assMan.TEXTURE_POWERUP_POINTS);
+        txtreReduce = assMan.manager.get(assMan.TEXTURE_POWERUP_REDUCE);
     }
 
     public boolean checkPlayer1Collision(ComputerBall computerBall){
@@ -173,7 +176,7 @@ public class MultiplayerScreen extends AbstractScreen {
         computerBallArr.add(additionalComputerBall1);
 
         //Adding Score
-        Skin skin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
+        Skin skin = assMan.manager.get(assMan.SKIN);
         scoreboard = new Label(String.valueOf(playerBall.score + String.valueOf(player2Ball.score)), skin);
         //score.setOrigin(MyGdxGame.WIDTH/5, 7*MyGdxGame.HEIGHT/10);
         scoreboard.setPosition(MyGdxGame.WIDTH/4, 4*MyGdxGame.HEIGHT/10);
