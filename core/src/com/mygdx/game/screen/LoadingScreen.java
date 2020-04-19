@@ -2,20 +2,20 @@ package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.mygdx.game.utils.AssetManager;
+import com.mygdx.game.utils.GeoRushAssetManager;
 import com.mygdx.game.utils.ScreenEnum;
 import com.mygdx.game.utils.ScreenManager;
 
 
 public class LoadingScreen extends AbstractScreen {
-    private AssetManager assMan;
+    private GeoRushAssetManager assMan;
     private int currentLoading;
     private TextButton textButton;
+    private ProgressBar progressBar;
     public LoadingScreen() {
         super();
         assMan  = ScreenManager.getInstance().getAssetManager();
@@ -28,7 +28,6 @@ public class LoadingScreen extends AbstractScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if(assMan.manager.update()) {
             currentLoading ++;
-
             switch (currentLoading) {
                 case 1:
                     assMan.loadSkins();
@@ -45,16 +44,18 @@ public class LoadingScreen extends AbstractScreen {
                     assMan.loadSounds();
                     textButton.setText("LOADING SOUNDS");
 
-                case 5: assMan.loadTextures();
+                case 5:
+                    assMan.loadTextures();
                     textButton.setText("LOADING TEXTURES");
 
             }
             if (currentLoading > 5) {
+                assMan.manager.finishLoading();
                 ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
             }
         }
 
-        act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        act();
         draw();
 
     }
@@ -65,13 +66,15 @@ public class LoadingScreen extends AbstractScreen {
         Skin skin = assMan.manager.get("quantum-horizon/skin/quantum-horizon-ui.json");
 
         textButton = new TextButton("LOADING ...", skin);
-
+      //  progressBar = new ProgressBar(0,100, 1, false, skin);
         System.out.println(this.getClass());
 
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
+        table.setDebug(false);
         table.add(textButton).fillX().uniformX();
+        table.row().pad(10,0,10,0);
+       // table.add(progressBar);
         addActor(table);
     }
     @Override

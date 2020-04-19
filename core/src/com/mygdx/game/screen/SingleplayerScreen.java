@@ -3,16 +3,11 @@ package com.mygdx.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.actors.ComputerBall;
 import com.mygdx.game.actors.PlayerBall;
+import com.mygdx.game.utils.GeoRushAssetManager;
 import com.mygdx.game.utils.ScreenEnum;
 import com.mygdx.game.utils.ScreenManager;
-
-import java.awt.Rectangle;
 
 public class SingleplayerScreen extends AbstractScreen {
 
@@ -20,11 +15,13 @@ public class SingleplayerScreen extends AbstractScreen {
     private ComputerBall computerBall;
 
     private Texture txtreBall;
+    private GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
 
 
 
     public SingleplayerScreen() {
         super();
+        txtreBall = assMan.manager.get(assMan.BALL_TEXTURE);
         txtreBall = new Texture(Gdx.files.internal("quantum-horizon/raw/globe_3.png"));
     }
 
