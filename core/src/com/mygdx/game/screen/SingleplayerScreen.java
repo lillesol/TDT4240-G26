@@ -3,6 +3,8 @@ package com.mygdx.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+
+import com.mygdx.game.utils.GeoRushAssetManager;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -28,6 +30,7 @@ public class SingleplayerScreen extends AbstractScreen {
     private List<ComputerBall> computerBallArr;
 
     private Texture txtreBall;
+    private GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
     private Texture txtreTime;
     private Texture txtrePoints;
     private Texture txtreReduce;
@@ -38,6 +41,7 @@ public class SingleplayerScreen extends AbstractScreen {
 
     public SingleplayerScreen() {
         super();
+        txtreBall = assMan.manager.get(assMan.BALL_TEXTURE);
         txtreBall = new Texture(Gdx.files.internal("quantum-horizon/raw/globe_3.png"));
         txtreTime = new Texture(Gdx.files.internal("powerUpIcons/time.png"));
         txtrePoints = new Texture(Gdx.files.internal("powerUpIcons/point.png"));
