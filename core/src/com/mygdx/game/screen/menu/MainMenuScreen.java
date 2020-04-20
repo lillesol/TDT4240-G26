@@ -2,6 +2,7 @@ package com.mygdx.game.screen.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -24,15 +25,21 @@ public class MainMenuScreen extends AbstractScreen {
         table.setDebug(true);
 
         Skin skin = assMan.manager.get(assMan.SKIN);
+        Label screenHeader = new Label("Main Menu",skin);
+        screenHeader.setFontScale(2,2);
         TextButton btnNewGame = new TextButton("New Game", skin);
         TextButton btnPreferences = new TextButton("Preferences", skin);
+        TextButton btnGameRules = new TextButton("Game Rules", skin);
         TextButton btnQuit = new TextButton("Quit", skin);
 
-
+        table.add(screenHeader).fillX().uniformX();
+        table.row().pad(20,0,0,0);
         table.add(btnNewGame).fillX().uniformX();
         table.row().pad(10,0,10,0);
         table.add(btnPreferences).fillX().uniformX();
         table.row();
+        table.add(btnGameRules).fillX().uniformX();
+        table.row().pad(20,0,0,0);
         table.add(btnQuit).fillX().uniformX();
 
         // Refactor this to a Factory class for UI elements and listeners?
@@ -48,6 +55,12 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ScreenManager.getInstance().showScreen(ScreenEnum.PREFERENCES);
+            }
+        });
+        btnGameRules.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ScreenManager.getInstance().showScreen(ScreenEnum.GAME_RULES);
             }
         });
         btnQuit.addListener(new ChangeListener() {
