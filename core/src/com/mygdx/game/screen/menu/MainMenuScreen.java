@@ -21,9 +21,9 @@ public class MainMenuScreen extends AbstractScreen {
     public void buildStage() {
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
+        table.setDebug(false);
 
-        Skin skin = assMan.manager.get(assMan.SKIN);
+        Skin skin = assMan.getManager().get(assMan.SKIN, Skin.class);
         TextButton btnNewGame = new TextButton("New Game", skin);
         TextButton btnPreferences = new TextButton("Preferences", skin);
         TextButton btnQuit = new TextButton("Quit", skin);

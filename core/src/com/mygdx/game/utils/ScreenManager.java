@@ -8,7 +8,8 @@ public class ScreenManager {
     private static ScreenManager instance;
 
     private MyGdxGame game;
-    public GeoRushAssetManager manager;
+    private GeoRushAssetManager manager;
+
     private ScreenManager() {
         super();
         manager = new GeoRushAssetManager();

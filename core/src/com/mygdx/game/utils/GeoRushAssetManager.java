@@ -2,14 +2,19 @@ package com.mygdx.game.utils;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class GeoRushAssetManager {
 
+    private AssetManager manager = new AssetManager();
 
-    public final AssetManager manager = new AssetManager();
+    public AssetManager getManager() {
+        return manager;
+    }
 
     // Skin
     public final String SKIN = "quantum-horizon/skin/quantum-horizon-ui.json";
@@ -35,14 +40,23 @@ public class GeoRushAssetManager {
     public void loadMusic() {
     }
 
+    public final String SOUND_SCORE_POINT = "sound/score_point.mp3";
     // Sounds
     public void loadSounds() {
-
+        manager.load(SOUND_SCORE_POINT, Sound.class);
     }
 
     // Font
     public void loadFonts() {
     }
 
+    // Preferences
+    private Preferences preferences;
+    public void loadPreferences(){
+        preferences = Gdx.app.getPreferences("GeoRush.settings");
+    }
+    public Preferences getPreferences() {
+        return preferences;
+    }
 
 }
