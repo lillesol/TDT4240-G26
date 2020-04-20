@@ -14,7 +14,7 @@ import com.mygdx.game.utils.ScreenManager;
 
 
 public class GameSelectScreen extends AbstractScreen {
-
+    private GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
     public GameSelectScreen() {
         super();
     }
@@ -26,11 +26,10 @@ public class GameSelectScreen extends AbstractScreen {
         table.setFillParent(true);
         table.setDebug(true);
 
-        Skin skin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
+        Skin skin = assMan.manager.get(assMan.SKIN);
         TextButton btnSingleplayer = new TextButton("SINGLE PLAYER", skin);
         TextButton btnMultiplayer = new TextButton("TWO-PLAYER", skin);
         TextButton btnMainMenu = new TextButton("< MAIN MENU", skin);
-
         table.add(btnSingleplayer).fillX().uniformX();
         table.row().pad(10,0,0,0);
         table.add(btnMultiplayer).fillX().uniformX();

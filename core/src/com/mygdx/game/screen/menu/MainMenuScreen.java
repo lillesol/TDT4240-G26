@@ -2,7 +2,6 @@ package com.mygdx.game.screen.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -13,7 +12,7 @@ import com.mygdx.game.utils.ScreenManager;
 
 
 public class MainMenuScreen extends AbstractScreen {
-
+    GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
     public MainMenuScreen(){
         super();
     }
@@ -23,7 +22,7 @@ public class MainMenuScreen extends AbstractScreen {
         table.setFillParent(true);
         table.setDebug(true);
 
-        Skin skin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
+        Skin skin = assMan.manager.get(assMan.SKIN);
         Label screenHeader = new Label("Main Menu",skin);
         screenHeader.setFontScale(2,2);
         TextButton btnNewGame = new TextButton("New Game", skin);

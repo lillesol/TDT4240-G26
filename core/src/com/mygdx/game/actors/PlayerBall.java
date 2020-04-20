@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.actors.movement_patterns.MovementPattern;
+import java.lang.Math.*;
 
 public class PlayerBall extends Actor {
     public Sprite sprite;

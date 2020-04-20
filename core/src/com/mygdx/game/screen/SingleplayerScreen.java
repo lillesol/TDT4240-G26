@@ -3,6 +3,8 @@ package com.mygdx.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+
+import com.mygdx.game.utils.GeoRushAssetManager;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -23,8 +25,11 @@ public class SingleplayerScreen extends AbstractScreen {
 
     private ComputerBall computerBall;
     private ComputerBall additionalComputerBall;
+    private ComputerBall additionalComputerBall1;
 
     private List<ComputerBall> computerBallArr;
+
+    private GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
 
     private Texture txtreBall;
     private Texture txtreTime;
@@ -37,10 +42,12 @@ public class SingleplayerScreen extends AbstractScreen {
 
     public SingleplayerScreen() {
         super();
-        txtreBall = new Texture(Gdx.files.internal("quantum-horizon/raw/globe_3.png"));
-        txtreTime = new Texture(Gdx.files.internal("powerUpIcons/time.png"));
-        txtrePoints = new Texture(Gdx.files.internal("powerUpIcons/point.png"));
-        txtreReduce = new Texture(Gdx.files.internal("powerUpIcons/reduce.png"));
+        int testint = assMan.manager.getLoadedAssets();
+        System.out.println(testint);
+        txtreBall = assMan.manager.get(assMan.TEXTURE_BALL);
+        txtrePoints = assMan.manager.get(assMan.TEXTURE_POWERUP_POINTS);
+        txtreReduce = assMan.manager.get(assMan.TEXTURE_POWERUP_REDUCE);
+        txtreTime = assMan.manager.get(assMan.TEXTURE_POWERUP_TIME);
     }
 
     public boolean checkCollision(ComputerBall computerBall) {
@@ -65,7 +72,7 @@ public class SingleplayerScreen extends AbstractScreen {
                 powerUps.addNewBall(txtreReduce);
                 addActor(powerUps.getPowerUpBall());
             }
-            powerUps.reduceBall(additionalComputerBall);
+            powerUps.reduceBall(additionalComputerBall, additionalComputerBall1);
         }
 
         // Increase points
@@ -79,9 +86,12 @@ public class SingleplayerScreen extends AbstractScreen {
         }
 
         // Add additional ball
-        if (playerScore == 30){
-            addActor(additionalComputerBall);
-            computerBallArr.add(additionalComputerBall);
+        if (playerScore % 30 == 0 && playerScore != 0){
+            if (playerScore/30 == 1){
+                addActor(additionalComputerBall);
+            }else if(playerScore/30 == 2){
+                addActor(additionalComputerBall1);
+            }
         }
     }
 
@@ -93,8 +103,8 @@ public class SingleplayerScreen extends AbstractScreen {
 
         // Adding playerBall
         playerBall = new PlayerBall(txtreBall, "playerBall");
-        playerBall.setSize(75,75);
-        playerBall.setMovementPattern(new CircularMovement(playerBall,MyGdxGame.WIDTH / 5, 7*(MyGdxGame.WIDTH / 20), MyGdxGame.HEIGHT / 3, 190));
+        playerBall.setSize(55,55);
+        playerBall.setMovementPattern(new CircularMovement(playerBall,MyGdxGame.WIDTH / 5, 4*(MyGdxGame.WIDTH/12), MyGdxGame.HEIGHT / 3, 190));
         // playerBall.setMovementPattern( new SquareMovement(MyGdxGame.WIDTH/5,MyGdxGame.HEIGHT/4));
         playerBall.sprite.setColor(0, 1, 0, 1);
         playerBall.getMovementPattern().getVisualMovementPattern().setColor(playerBall.sprite.getColor());
@@ -102,22 +112,31 @@ public class SingleplayerScreen extends AbstractScreen {
 
         // Adding computerBall
         computerBall = new ComputerBall(txtreBall, "computerBall");
-        computerBall.sprite.setSize(75, 75);
-        computerBall.setMovementPattern(new CircularMovement(computerBall,MyGdxGame.WIDTH / 5, 7*(MyGdxGame.WIDTH /20), MyGdxGame.HEIGHT / 2, 0));
+        computerBall.sprite.setSize(55, 55);
+        computerBall.setMovementPattern(new CircularMovement(computerBall,MyGdxGame.WIDTH / 5, 4*(MyGdxGame.WIDTH/12), MyGdxGame.HEIGHT / 2, 0));
         // computerBall.setMovementPattern(new SquareMovement(MyGdxGame.WIDTH/5, 2*MyGdxGame.HEIGHT/4));
         computerBall.getMovementPattern().getVisualMovementPattern().setColor(computerBall.getSprite().getColor());
         addActor(computerBall);
 
         additionalComputerBall = new ComputerBall(txtreBall, "computerBall");
-        additionalComputerBall.sprite.setSize(75, 75);
-        additionalComputerBall.setMovementPattern(new CircularMovement(computerBall,MyGdxGame.WIDTH / 5, 7*(MyGdxGame.WIDTH /20), MyGdxGame.HEIGHT / 2, 0));
-        additionalComputerBall.getMovementPattern().getVisualMovementPattern().setColor(computerBall.getSprite().getColor());
+        additionalComputerBall.sprite.setSize(55, 55);
+        additionalComputerBall.setMovementPattern(new CircularMovement(computerBall,MyGdxGame.WIDTH / 5, 4*(MyGdxGame.WIDTH/12), MyGdxGame.HEIGHT / 2, 0));
+
+        additionalComputerBall1 = new ComputerBall(txtreBall, "computerBall");
+        additionalComputerBall1.sprite.setSize(55, 55);
+        additionalComputerBall1.setMovementPattern(new CircularMovement(computerBall,MyGdxGame.WIDTH / 5, 4*(MyGdxGame.WIDTH/12), MyGdxGame.HEIGHT / 2, 0));
+
+        computerBallArr = new ArrayList<>();
+        computerBallArr.add(additionalComputerBall);
+        computerBallArr.add(additionalComputerBall1);
 
         powerUps = new PowerUps(txtreTime, "", computerBall, playerBall);
-        computerBallArr = new ArrayList<>();
+        powerUps.setPlayer2Ball(playerBall);
+        powerUps.getPowerUpBall().setMovementPattern(new CircularMovement(computerBall,MyGdxGame.WIDTH / 5, 4*(MyGdxGame.WIDTH/12), MyGdxGame.HEIGHT / 2, 0));
+        powerUps.getPowerUpBall().getMovementPattern().getVisualMovementPattern().setColor(computerBall.getSprite().getColor());
 
         //Adding ScoreBoard
-        Skin skin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
+        Skin skin = assMan.manager.get(assMan.SKIN);
         score = new Label("Highcore: "+String.valueOf(playerBall.score), skin);
         //score.setOrigin(MyGdxGame.WIDTH/5, 7*MyGdxGame.HEIGHT/10);
         score.setPosition(MyGdxGame.WIDTH/4, 7*MyGdxGame.HEIGHT/10);
@@ -130,7 +149,7 @@ public class SingleplayerScreen extends AbstractScreen {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        score.setText("Highscore : "+ playerScore);
+        score.setText("Score: "+ playerScore);
 
         if (Gdx.input.isTouched()) {
             playerBall.setSpeedMultiplier(5);
@@ -151,7 +170,7 @@ public class SingleplayerScreen extends AbstractScreen {
         draw();
 
         // Must be here or it will collide sprites at default location
-        if (checkCollision(computerBall) || checkCollision(additionalComputerBall)) {
+        if (checkCollision(computerBall) || checkCollision(additionalComputerBall) || checkCollision(additionalComputerBall1)) {
             ScreenManager.getInstance().showScreen(ScreenEnum.GAME_OVER);
         }
     }

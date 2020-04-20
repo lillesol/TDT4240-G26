@@ -6,9 +6,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.mygdx.game.utils.GeoRushAssetManager;
+import com.mygdx.game.utils.ScreenManager;
 
 public abstract class AbstractScreen extends Stage implements Screen {
-
     protected AbstractScreen() {
         super(new ExtendViewport(480,800));
     }
