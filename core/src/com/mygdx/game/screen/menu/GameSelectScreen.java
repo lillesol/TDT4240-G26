@@ -27,7 +27,7 @@ public class GameSelectScreen extends AbstractScreen {
         table.setFillParent(true);
         table.setDebug(true);
 
-        Skin skin = assMan.manager.get(assMan.SKIN);
+        Skin skin = assMan.getManager().get(assMan.SKIN);
         TextButton btnSingleplayer = new TextButton("SINGLE PLAYER", skin);
         TextButton btnMultiplayer = new TextButton("TWO-PLAYER", skin);
         TextButton btnMainMenu = new TextButton("< MAIN MENU", skin);

@@ -41,12 +41,10 @@ public class SingleplayerScreen extends AbstractScreen {
 
     public SingleplayerScreen() {
         super();
-        int testint = assMan.manager.getLoadedAssets();
-        System.out.println(testint);
-        txtreBall = assMan.manager.get(assMan.TEXTURE_BALL);
-        txtrePoints = assMan.manager.get(assMan.TEXTURE_POWERUP_POINTS);
-        txtreReduce = assMan.manager.get(assMan.TEXTURE_POWERUP_REDUCE);
-        txtreTime = assMan.manager.get(assMan.TEXTURE_POWERUP_TIME);
+        txtreBall = assMan.getManager().get(assMan.TEXTURE_BALL);
+        txtrePoints = assMan.getManager().get(assMan.TEXTURE_POWERUP_POINTS);
+        txtreReduce = assMan.getManager().get(assMan.TEXTURE_POWERUP_REDUCE);
+        txtreTime = assMan.getManager().get(assMan.TEXTURE_POWERUP_TIME);
     }
 
     public boolean checkCollision(ComputerBall computerBall) {
@@ -128,7 +126,7 @@ public class SingleplayerScreen extends AbstractScreen {
         powerUps.getPowerUpBall().getMovementPattern().getVisualMovementPattern().setColor(computerBall.getSprite().getColor());
 
         //Adding ScoreBoard
-        Skin skin = assMan.manager.get(assMan.SKIN);
+        Skin skin = assMan.getManager().get(assMan.SKIN);
         score = new Label("Highcore: "+String.valueOf(playerBall.score), skin);
         //score.setOrigin(MyGdxGame.WIDTH/5, 7*MyGdxGame.HEIGHT/10);
         score.setPosition(MyGdxGame.WIDTH/4, 7*MyGdxGame.HEIGHT/10);

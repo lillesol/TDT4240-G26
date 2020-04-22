@@ -16,17 +16,25 @@ public class LoadingScreen extends AbstractScreen {
     private int currentLoading;
     private TextButton textButton;
     private ProgressBar progressBar;
+    private ScreenEnum newScreen;
     public LoadingScreen() {
         super();
         assMan  = ScreenManager.getInstance().getAssetManager();
         currentLoading = 0;
     }
 
+    public LoadingScreen(ScreenEnum n) {
+        super();
+        assMan  = ScreenManager.getInstance().getAssetManager();
+        currentLoading = 0;
+        newScreen = n;
+    }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if(assMan.manager.update()) {
+        if(assMan.getManager().update()) {
             currentLoading ++;
             switch (currentLoading) {
                 case 1:
@@ -50,8 +58,9 @@ public class LoadingScreen extends AbstractScreen {
 
             }
             if (currentLoading > 5) {
-                assMan.manager.finishLoading();
-                ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+                assMan.getManager().finishLoading();
+                newScreen = (newScreen == null ? ScreenEnum.MAIN_MENU : newScreen);
+                ScreenManager.getInstance().showScreen(newScreen);
             }
         }
 
@@ -62,8 +71,8 @@ public class LoadingScreen extends AbstractScreen {
     @Override
     public void buildStage() {
         assMan.loadSkins();
-        assMan.manager.finishLoading();
-        Skin skin = assMan.manager.get("quantum-horizon/skin/quantum-horizon-ui.json");
+        assMan.getManager().finishLoading();
+        Skin skin = assMan.getManager().get(assMan.SKIN);
 
         textButton = new TextButton("LOADING ...", skin);
       //  progressBar = new ProgressBar(0,100, 1, false, skin);

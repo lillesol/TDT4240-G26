@@ -33,7 +33,7 @@ public class PowerUps extends PowerUpBall {
 
         this.setActorName(actorName);
 
-        txtreSprite = assMan.manager.get(assMan.TEXTURE_POWERUP_TIME);
+        txtreSprite = assMan.getManager().get(assMan.TEXTURE_POWERUP_TIME);
         powerUpBall = new PowerUpBall(txtreSprite, "computerBall");
         powerUpBall.getSprite().setSize(60, 60);
         powerUpBall.getSprite().setColor(255,255,255,1);
