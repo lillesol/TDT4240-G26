@@ -8,13 +8,9 @@ import com.mygdx.game.actors.movement_patterns.CircularMovement;
 import com.mygdx.game.utils.GeoRushAssetManager;
 import com.mygdx.game.utils.ScreenManager;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class PowerUps extends PowerUpBall {
-
-    private List<PowerUpBall> powerUpBalls = new ArrayList<PowerUpBall>();
 
     private GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
     private PowerUpBall powerUpBall;
@@ -47,7 +43,6 @@ public class PowerUps extends PowerUpBall {
 
     public void addNewBall(Texture txtSpr){
         getPowerUpBall().getSprite().setTexture(txtSpr);
-        powerUpBalls.add(getPowerUpBall());
     }
 
     public void reduceSpeed(){
@@ -61,14 +56,15 @@ public class PowerUps extends PowerUpBall {
 
             computerBall.setSpeedMultiplier(currSpeed);
             powerUpBall.addAction(Actions.removeActor());
+            powerUpBall.setPosition(999,999);
         }
     }
 
-    public void reduceBall(ComputerBall addComputerBall, ComputerBall addComputerBall2){
+    public void reduceBall(ComputerBall addComputerBall){
         if (checkCollisionPowerUpBall() && (getActorName().equals("Reduce ball")) || checkCollisionPowerUpBallPlayer2() && (getActorName().equals("Reduce ball"))){
             addComputerBall.addAction(Actions.removeActor());
-            addComputerBall2.addAction(Actions.removeActor());
             powerUpBall.addAction(Actions.removeActor());
+            powerUpBall.setPosition(999,999);
         }
     }
 
@@ -78,6 +74,7 @@ public class PowerUps extends PowerUpBall {
             playerBall.score = playerBall.score+20;
             computerBall.setSpeedMultiplier(currSpeed);
             powerUpBall.addAction(Actions.removeActor());
+            powerUpBall.setPosition(999,999);
         }
     }
 
@@ -94,20 +91,12 @@ public class PowerUps extends PowerUpBall {
         return powerUpBall;
     }
 
-    public void setPowerUpBall(PowerUpBall powerUpBall) {
-        this.powerUpBall = powerUpBall;
-    }
-
     public String getActorName() {
         return actorName;
     }
 
     public void setActorName(String actorName) {
         this.actorName = actorName;
-    }
-
-    public PlayerBall getPlayer2Ball() {
-        return player2Ball;
     }
 
     public void setPlayer2Ball(PlayerBall player2Ball) {

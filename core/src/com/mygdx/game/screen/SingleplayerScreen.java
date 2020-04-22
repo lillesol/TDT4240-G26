@@ -25,7 +25,6 @@ public class SingleplayerScreen extends AbstractScreen {
 
     private ComputerBall computerBall;
     private ComputerBall additionalComputerBall;
-    private ComputerBall additionalComputerBall1;
 
     private List<ComputerBall> computerBallArr;
 
@@ -56,7 +55,7 @@ public class SingleplayerScreen extends AbstractScreen {
 
     public void choosePowerUp(int playerScore){
         // Reduce speed
-        if (playerScore >= 25 && playerScore < 35) {
+        if (playerScore >= 25) {
             if (playerScore == 25){
                 powerUps.setActorName("Reduce speed");
                 powerUps.addNewBall(txtreTime);
@@ -66,13 +65,13 @@ public class SingleplayerScreen extends AbstractScreen {
         }
 
         // Reduce ball
-        if (playerScore >= 45 && playerScore < 55) {
+        if (playerScore >= 45) {
             if (playerScore == 45){
                 powerUps.setActorName("Reduce ball");
                 powerUps.addNewBall(txtreReduce);
                 addActor(powerUps.getPowerUpBall());
             }
-            powerUps.reduceBall(additionalComputerBall, additionalComputerBall1);
+            powerUps.reduceBall(additionalComputerBall);
         }
 
         // Increase points
@@ -89,8 +88,6 @@ public class SingleplayerScreen extends AbstractScreen {
         if (playerScore % 30 == 0 && playerScore != 0){
             if (playerScore/30 == 1){
                 addActor(additionalComputerBall);
-            }else if(playerScore/30 == 2){
-                addActor(additionalComputerBall1);
             }
         }
     }
@@ -122,13 +119,8 @@ public class SingleplayerScreen extends AbstractScreen {
         additionalComputerBall.sprite.setSize(55, 55);
         additionalComputerBall.setMovementPattern(new CircularMovement(computerBall,MyGdxGame.WIDTH / 5, 4*(MyGdxGame.WIDTH/12), MyGdxGame.HEIGHT / 2, 0));
 
-        additionalComputerBall1 = new ComputerBall(txtreBall, "computerBall");
-        additionalComputerBall1.sprite.setSize(55, 55);
-        additionalComputerBall1.setMovementPattern(new CircularMovement(computerBall,MyGdxGame.WIDTH / 5, 4*(MyGdxGame.WIDTH/12), MyGdxGame.HEIGHT / 2, 0));
-
         computerBallArr = new ArrayList<>();
         computerBallArr.add(additionalComputerBall);
-        computerBallArr.add(additionalComputerBall1);
 
         powerUps = new PowerUps(txtreTime, "", computerBall, playerBall);
         powerUps.setPlayer2Ball(playerBall);
@@ -170,7 +162,7 @@ public class SingleplayerScreen extends AbstractScreen {
         draw();
 
         // Must be here or it will collide sprites at default location
-        if (checkCollision(computerBall) || checkCollision(additionalComputerBall) || checkCollision(additionalComputerBall1)) {
+        if (checkCollision(computerBall) || checkCollision(additionalComputerBall)) {
             ScreenManager.getInstance().showScreen(ScreenEnum.GAME_OVER);
         }
     }

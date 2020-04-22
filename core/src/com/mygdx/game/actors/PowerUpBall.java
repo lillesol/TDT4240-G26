@@ -16,7 +16,6 @@ public class PowerUpBall extends Actor {
         setSprite(new Sprite(texture));
         getSprite().setPosition(getX(),getY());
         setSize(getSprite().getWidth(), getSprite().getHeight());
-        //setPosition(sprite.getX(),sprite.getY());
         setSpeedMultiplier(1);
         setScore(0);
     }
