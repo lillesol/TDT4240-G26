@@ -59,4 +59,7 @@ public class GeoRushAssetManager {
         return preferences;
     }
 
+    public AssetManager getManager() {
+        return manager;
+    }
 }

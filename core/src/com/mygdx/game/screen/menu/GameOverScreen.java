@@ -26,10 +26,11 @@ public class GameOverScreen extends AbstractScreen {
         table.setDebug(true);
 
         Skin skin = assMan.getManager().get(assMan.SKIN, Skin.class);
+
         TextButton btnSingleplayer = new TextButton("Replay", skin);
-        TextButton btnMainMenu = new TextButton("Main Menu", skin);
+        TextButton btnMainMenu = new TextButton("< Main Menu", skin);
         table.add(btnSingleplayer).fillX().uniformX();
-        table.row().pad(10,0,10,0);
+        table.row().pad(10,0,0,0);
         table.add(btnMainMenu).fillX().uniformX();
 
 

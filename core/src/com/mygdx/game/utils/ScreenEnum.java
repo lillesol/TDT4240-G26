@@ -4,6 +4,7 @@ import com.mygdx.game.screen.AbstractScreen;
 import com.mygdx.game.screen.menu.GameOverScreen;
 import com.mygdx.game.screen.MultiplayerScreen;
 import com.mygdx.game.screen.SingleplayerScreen;
+import com.mygdx.game.screen.menu.GameRulesScreen;
 import com.mygdx.game.screen.menu.GameSelectScreen;
 import com.mygdx.game.screen.LoadingScreen;
 import com.mygdx.game.screen.menu.MainMenuScreen;
@@ -21,6 +22,11 @@ public enum ScreenEnum {
             return new PreferencesScreen();
         }
     },
+    GAME_RULES {
+        public AbstractScreen getScreen(Object... params) {
+            return new GameRulesScreen();
+        }
+    },
     LEVEL_SELECT {
         public AbstractScreen getScreen(Object... params) {
             return new GameSelectScreen();
@@ -28,6 +34,12 @@ public enum ScreenEnum {
     },
     LOADING {
         public AbstractScreen getScreen(Object... params) {
+            try{
+                if(params[0] instanceof ScreenEnum) {
+                    return new LoadingScreen((ScreenEnum)params[0]);
+                }
+            }catch(Exception e){}
+
             return new LoadingScreen();
         }
     },
