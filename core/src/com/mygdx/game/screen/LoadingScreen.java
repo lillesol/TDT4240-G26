@@ -16,10 +16,18 @@ public class LoadingScreen extends AbstractScreen {
     private int currentLoading;
     private TextButton textButton;
     private ProgressBar progressBar;
+    private ScreenEnum newScreen;
     public LoadingScreen() {
         super();
         assMan  = ScreenManager.getInstance().getAssetManager();
         currentLoading = 0;
+    }
+
+    public LoadingScreen(ScreenEnum n) {
+        super();
+        assMan  = ScreenManager.getInstance().getAssetManager();
+        currentLoading = 0;
+        newScreen = n;
     }
 
     @Override
@@ -51,7 +59,10 @@ public class LoadingScreen extends AbstractScreen {
             }
             if (currentLoading > 5) {
                 assMan.manager.finishLoading();
-                ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+                newScreen = (newScreen == null ? ScreenEnum.MAIN_MENU : newScreen);
+                System.out.println(newScreen);
+                System.out.println(ScreenEnum.MAIN_MENU);
+                ScreenManager.getInstance().showScreen(newScreen);
             }
         }
 

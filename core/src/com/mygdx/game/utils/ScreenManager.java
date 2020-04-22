@@ -8,7 +8,9 @@ public class ScreenManager {
     private static ScreenManager instance;
 
     private MyGdxGame game;
-    public GeoRushAssetManager manager;
+    private GeoRushAssetManager manager;
+    private ScreenEnum currentScreen;
+
     private ScreenManager() {
         super();
         manager = new GeoRushAssetManager();
@@ -25,16 +27,21 @@ public class ScreenManager {
         this.game = game;
     }
 
+    public ScreenEnum getCurrentScreen() {
+        return currentScreen;
+    }
     public void showScreen(ScreenEnum screenEnum, Object... params) {
 
-        Screen currentScreen = game.getScreen();
+        Screen oldScreen = game.getScreen();
 
         AbstractScreen newScreen = screenEnum.getScreen(params);
         newScreen.buildStage();
         game.setScreen(newScreen);
 
-        if(currentScreen != null) {
-            currentScreen.dispose();
+        this.currentScreen = screenEnum;
+
+        if(oldScreen != null) {
+            oldScreen.dispose();
         }
     }
 

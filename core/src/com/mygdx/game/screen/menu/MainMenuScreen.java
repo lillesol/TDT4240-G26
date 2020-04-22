@@ -42,7 +42,6 @@ public class MainMenuScreen extends AbstractScreen {
         table.row().pad(20,0,0,0);
         table.add(btnQuit).fillX().uniformX();
 
-        // Refactor this to a Factory class for UI elements and listeners?
         addActor(table);
 
         btnNewGame.addListener(new ChangeListener() {
