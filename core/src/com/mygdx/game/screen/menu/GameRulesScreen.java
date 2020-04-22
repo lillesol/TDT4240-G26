@@ -25,7 +25,7 @@ public class GameRulesScreen extends AbstractScreen {
         table.setDebug(true);
 
         // Table content
-        Skin skin = ScreenManager.getInstance().getAssetManager().manager.get(ScreenManager.getInstance().getAssetManager().SKIN);
+        Skin skin = ScreenManager.getInstance().getAssetManager().getManager().get(ScreenManager.getInstance().getAssetManager().SKIN);
         Label descriptionHeader = new Label("Game Rules",skin);
         descriptionHeader.setFontScale(2,2);
         Label descriptionParagraph = new Label("1. Avoid collision with the red enemy ball " +

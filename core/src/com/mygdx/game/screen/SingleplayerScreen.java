@@ -180,51 +180,6 @@ public class SingleplayerScreen extends AbstractScreen {
     }
 
 
-    public boolean checkCollision(ComputerBall computerBall) {
-        return (playerBall.sprite.getBoundingRectangle().overlaps(computerBall.sprite.getBoundingRectangle()));
-    }
-
-    public void choosePowerUp(int playerScore){
-        // Reduce speed
-        if (playerScore >= 25 && playerScore < 35) {
-            if (playerScore == 25){
-                powerUps.setActorName("Reduce speed");
-                powerUps.addNewBall(txtreTime);
-                addActor(powerUps.getPowerUpBall());
-            }
-            powerUps.reduceSpeed();
-        }
-
-        // Reduce ball
-        if (playerScore >= 45 && playerScore < 55) {
-            if (playerScore == 45){
-                powerUps.setActorName("Reduce ball");
-                powerUps.addNewBall(txtreReduce);
-                addActor(powerUps.getPowerUpBall());
-            }
-            powerUps.reduceBall(additionalComputerBall, additionalComputerBall1);
-        }
-
-        // Increase points
-        if (playerScore >= 65) {
-            if (playerScore == 65){
-                powerUps.setActorName("Increase points");
-                powerUps.addNewBall(txtrePoints);
-                addActor(powerUps.getPowerUpBall());
-            }
-            powerUps.addPowerUpPoint();
-        }
-
-        // Add additional ball
-        if (playerScore % 30 == 0 && playerScore != 0){
-            if (playerScore/30 == 1){
-                addActor(additionalComputerBall);
-            }else if(playerScore/30 == 2){
-                addActor(additionalComputerBall1);
-            }
-        }
-    }
-
     @Override
     public void dispose() {
         super.dispose();

@@ -12,9 +12,6 @@ public class GeoRushAssetManager {
 
     private AssetManager manager = new AssetManager();
 
-    public AssetManager getManager() {
-        return manager;
-    }
 
     // Skin
     public final String SKIN = "quantum-horizon/skin/quantum-horizon-ui.json";
