@@ -8,9 +8,10 @@ public class ScreenManager {
     private static ScreenManager instance;
 
     private MyGdxGame game;
-
+    public GeoRushAssetManager manager;
     private ScreenManager() {
         super();
+        manager = new GeoRushAssetManager();
     }
 
     public static ScreenManager getInstance() {
@@ -35,5 +36,9 @@ public class ScreenManager {
         if(currentScreen != null) {
             currentScreen.dispose();
         }
+    }
+
+    public GeoRushAssetManager getAssetManager() {
+        return this.manager;
     }
 }

@@ -36,6 +36,7 @@ public class MyGdxGame extends Game {
 	@Override
 	public void render() {
 		super.render();
+		Gdx.graphics.setTitle(Integer.toString(Gdx.graphics.getFramesPerSecond()));
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.screen.AbstractScreen;
+import com.mygdx.game.utils.GeoRushAssetManager;
 import com.mygdx.game.utils.ScreenEnum;
 import com.mygdx.game.utils.ScreenManager;
 
@@ -17,7 +18,7 @@ import java.util.Random;
 
 
 public class MainMenuScreen extends AbstractScreen {
-
+    GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
     public MainMenuScreen(){
         super();
     }
@@ -27,6 +28,9 @@ public class MainMenuScreen extends AbstractScreen {
         table.setFillParent(true);
         table.setDebug(true);
 
+        Skin skin = assMan.manager.get(assMan.SKIN);
+        Label screenHeader = new Label("Main Menu",skin);
+        screenHeader.setFontScale(2,2);
         // For leaderboard testing
         final Random randomLeaderboardScore = new Random();
 
@@ -36,11 +40,15 @@ public class MainMenuScreen extends AbstractScreen {
         final TextButton btnSignIn = new TextButton("Sign in", skin);
         TextButton btnLeaderboard = new TextButton("Leaderboard", skin);
         TextButton btnLbTest = new TextButton("Leaderboard Test Random Score", skin);
+        TextButton btnPreferences = new TextButton("Preferences", skin);
+        TextButton btnGameRules = new TextButton("Game Rules", skin);
         TextButton btnQuit = new TextButton("Quit", skin);
         final Label onlineStatusLabael = new Label("Please sign into Google Play Services", skin);
         onlineStatusLabael.setWrap(true);
         onlineStatusLabael.setAlignment(Align.center);
 
+        table.add(screenHeader).fillX().uniformX();
+        table.row().pad(20,0,0,0);
         // If user is already signed in
         if(MyGdxGame.gpgs.isSignedIn()){
             btnSignIn.setText("Sign out");
@@ -51,6 +59,8 @@ public class MainMenuScreen extends AbstractScreen {
         table.row();
         table.add(btnPreferences).fillX().uniformX();
         table.row();
+        table.add(btnGameRules).fillX().uniformX();
+        table.row().pad(20,0,0,0);
         table.add(btnLeaderboard).fillX().uniformX();
         table.row();
         table.add(btnLbTest).fillX().uniformX();
@@ -110,6 +120,12 @@ public class MainMenuScreen extends AbstractScreen {
                     btnSignIn.setText("Sign in");
                     onlineStatusLabael.setText("Please sign into Google Play Services");
                 }
+            }
+        });
+        btnGameRules.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ScreenManager.getInstance().showScreen(ScreenEnum.GAME_RULES);
             }
         });
         btnQuit.addListener(new ChangeListener() {
