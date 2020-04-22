@@ -31,7 +31,8 @@ public class GameSelectScreen extends AbstractScreen {
         TextButton btnSingleplayer = new TextButton("SINGLE PLAYER", skin);
         TextButton btnMultiplayer = new TextButton("TWO-PLAYER", skin);
         TextButton btnMainMenu = new TextButton("< MAIN MENU", skin);
-        table.add(btnSingleplayer).fillX().uniformX();
+
+      table.add(btnSingleplayer).fillX().uniformX();
         table.row().pad(10,0,0,0);
         table.add(btnMultiplayer).fillX().uniformX();
         table.row().pad(20,0,0,0);

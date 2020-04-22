@@ -40,10 +40,12 @@ public class MultiplayerScreen extends AbstractScreen {
 
     public MultiplayerScreen() {
         super();
-        txtreBall = assMan.getManager().get(assMan.TEXTURE_BALL);
-        txtreTime = assMan.getManager().get(assMan.TEXTURE_POWERUP_TIME);
-        txtrePoints = assMan.getManager().get(assMan.TEXTURE_POWERUP_POINTS);
-        txtreReduce = assMan.getManager().get(assMan.TEXTURE_POWERUP_REDUCE);
+
+        txtreBall = assMan.getManager().get(assMan.TEXTURE_BALL, Texture.class);
+        txtreTime = assMan.getManager().get(assMan.TEXTURE_POWERUP_TIME, Texture.class);
+        txtrePoints = assMan.getManager().get(assMan.TEXTURE_POWERUP_POINTS, Texture.class);
+        txtreReduce = assMan.getManager().get(assMan.TEXTURE_POWERUP_REDUCE, Texture.class);
+
     }
 
     public boolean checkPlayer1Collision(ComputerBall computerBall){
@@ -166,7 +168,9 @@ public class MultiplayerScreen extends AbstractScreen {
         computerBallArr.add(additionalComputerBall);
 
         //Adding Score
-        Skin skin = assMan.getManager().get(assMan.SKIN);
+
+        Skin skin = assMan.getManager().get(assMan.SKIN, Skin.class);
+
         scoreboard = new Label(String.valueOf(playerBall.score + String.valueOf(player2Ball.score)), skin);
         //score.setOrigin(MyGdxGame.WIDTH/5, 7*MyGdxGame.HEIGHT/10);
         scoreboard.setPosition(MyGdxGame.WIDTH/4, 4*MyGdxGame.HEIGHT/10);

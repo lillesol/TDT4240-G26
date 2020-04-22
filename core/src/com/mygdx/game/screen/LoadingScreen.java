@@ -59,6 +59,7 @@ public class LoadingScreen extends AbstractScreen {
             }
             if (currentLoading > 5) {
                 assMan.getManager().finishLoading();
+                
                 newScreen = (newScreen == null ? ScreenEnum.MAIN_MENU : newScreen);
                 ScreenManager.getInstance().showScreen(newScreen);
             }
@@ -70,9 +71,12 @@ public class LoadingScreen extends AbstractScreen {
     }
     @Override
     public void buildStage() {
+        assMan.loadPreferences();
         assMan.loadSkins();
         assMan.getManager().finishLoading();
-        Skin skin = assMan.getManager().get(assMan.SKIN);
+
+        Skin skin = assMan.getManager().get(assMan.SKIN, Skin.class);
+
 
         textButton = new TextButton("LOADING ...", skin);
       //  progressBar = new ProgressBar(0,100, 1, false, skin);

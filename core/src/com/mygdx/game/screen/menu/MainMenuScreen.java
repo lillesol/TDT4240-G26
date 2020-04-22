@@ -22,11 +22,13 @@ public class MainMenuScreen extends AbstractScreen {
     public void buildStage() {
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
+        table.setDebug(false);
 
-        Skin skin = assMan.getManager().get(assMan.SKIN);
-        Label screenHeader = new Label("Main Menu",skin);
+
+        Skin skin = assMan.getManager().get(assMan.SKIN, Skin.class);
+        Label screenHeader = new Label("Main Menu",skin, title);
         screenHeader.setFontScale(2,2);
+      
         TextButton btnNewGame = new TextButton("New Game", skin);
         TextButton btnPreferences = new TextButton("Preferences", skin);
         TextButton btnGameRules = new TextButton("Game Rules", skin);

@@ -9,6 +9,7 @@ public class ScreenManager {
 
     private MyGdxGame game;
     private GeoRushAssetManager manager;
+ 
     private ScreenEnum currentScreen;
 
     private ScreenManager() {

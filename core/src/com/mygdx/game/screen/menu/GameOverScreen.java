@@ -25,7 +25,8 @@ public class GameOverScreen extends AbstractScreen {
         table.setFillParent(true);
         table.setDebug(true);
 
-        Skin skin = assMan.getManager().get(assMan.SKIN);
+        Skin skin = assMan.getManager().get(assMan.SKIN, Skin.class);
+
         TextButton btnSingleplayer = new TextButton("Replay", skin);
         TextButton btnMainMenu = new TextButton("< Main Menu", skin);
         table.add(btnSingleplayer).fillX().uniformX();
