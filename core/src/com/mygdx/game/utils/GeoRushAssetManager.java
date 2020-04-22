@@ -44,5 +44,7 @@ public class GeoRushAssetManager {
     public void loadFonts() {
     }
 
-
+    public AssetManager getManager() {
+        return manager;
+    }
 }

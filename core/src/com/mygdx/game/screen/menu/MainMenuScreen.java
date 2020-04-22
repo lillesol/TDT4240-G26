@@ -24,7 +24,7 @@ public class MainMenuScreen extends AbstractScreen {
         table.setFillParent(true);
         table.setDebug(true);
 
-        Skin skin = assMan.manager.get(assMan.SKIN);
+        Skin skin = assMan.getManager().get(assMan.SKIN);
         Label screenHeader = new Label("Main Menu",skin);
         screenHeader.setFontScale(2,2);
         TextButton btnNewGame = new TextButton("New Game", skin);
