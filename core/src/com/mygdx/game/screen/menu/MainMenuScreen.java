@@ -27,10 +27,11 @@ public class MainMenuScreen extends AbstractScreen {
         Table table = new Table();
         table.setFillParent(true);
         // table.setDebug(true);
+        table.setDebug(false);
 
-        Skin skin = assMan.manager.get(assMan.SKIN);
 
-        Label screenHeader = new Label("Main Menu",skin);
+        Skin skin = assMan.getManager().get(assMan.SKIN, Skin.class);
+        Label screenHeader = new Label("Main Menu",skin, "title");
         screenHeader.setFontScale(2,2);
         screenHeader.setAlignment(Align.center);
         // For leaderboard testing

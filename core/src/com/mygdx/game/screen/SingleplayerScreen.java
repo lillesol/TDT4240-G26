@@ -1,6 +1,7 @@
 package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -25,7 +26,6 @@ public class SingleplayerScreen extends AbstractScreen {
 
     private ComputerBall computerBall;
     private ComputerBall additionalComputerBall;
-    private ComputerBall additionalComputerBall1;
 
     private List<ComputerBall> computerBallArr;
 
@@ -40,14 +40,19 @@ public class SingleplayerScreen extends AbstractScreen {
 
     private PowerUps powerUps;
 
+    private Sound soundScorePoint;
+
     public SingleplayerScreen() {
         super();
-        int testint = assMan.manager.getLoadedAssets();
+
+        int testint = assMan.getManager().getLoadedAssets();
         System.out.println(testint);
-        txtreBall = assMan.manager.get(assMan.TEXTURE_BALL);
-        txtrePoints = assMan.manager.get(assMan.TEXTURE_POWERUP_POINTS);
-        txtreReduce = assMan.manager.get(assMan.TEXTURE_POWERUP_REDUCE);
-        txtreTime = assMan.manager.get(assMan.TEXTURE_POWERUP_TIME);
+        txtreBall = assMan.getManager().get(assMan.TEXTURE_BALL, Texture.class);
+        txtrePoints = assMan.getManager().get(assMan.TEXTURE_POWERUP_POINTS, Texture.class);
+        txtreReduce = assMan.getManager().get(assMan.TEXTURE_POWERUP_REDUCE, Texture.class);
+        txtreTime = assMan.getManager().get(assMan.TEXTURE_POWERUP_TIME, Texture.class);
+        soundScorePoint = assMan.getManager().get(assMan.SOUND_SCORE_POINT, Sound.class);
+
     }
 
     public boolean checkCollision(ComputerBall computerBall) {
@@ -56,7 +61,7 @@ public class SingleplayerScreen extends AbstractScreen {
 
     public void choosePowerUp(int playerScore){
         // Reduce speed
-        if (playerScore >= 25 && playerScore < 35) {
+        if (playerScore >= 25) {
             if (playerScore == 25){
                 powerUps.setActorName("Reduce speed");
                 powerUps.addNewBall(txtreTime);
@@ -66,13 +71,13 @@ public class SingleplayerScreen extends AbstractScreen {
         }
 
         // Reduce ball
-        if (playerScore >= 45 && playerScore < 55) {
+        if (playerScore >= 45) {
             if (playerScore == 45){
                 powerUps.setActorName("Reduce ball");
                 powerUps.addNewBall(txtreReduce);
                 addActor(powerUps.getPowerUpBall());
             }
-            powerUps.reduceBall(additionalComputerBall, additionalComputerBall1);
+            powerUps.reduceBall(additionalComputerBall);
         }
 
         // Increase points
@@ -89,8 +94,6 @@ public class SingleplayerScreen extends AbstractScreen {
         if (playerScore % 30 == 0 && playerScore != 0){
             if (playerScore/30 == 1){
                 addActor(additionalComputerBall);
-            }else if(playerScore/30 == 2){
-                addActor(additionalComputerBall1);
             }
         }
     }
@@ -122,13 +125,8 @@ public class SingleplayerScreen extends AbstractScreen {
         additionalComputerBall.sprite.setSize(55, 55);
         additionalComputerBall.setMovementPattern(new CircularMovement(computerBall,MyGdxGame.WIDTH / 5, 4*(MyGdxGame.WIDTH/12), MyGdxGame.HEIGHT / 2, 0));
 
-        additionalComputerBall1 = new ComputerBall(txtreBall, "computerBall");
-        additionalComputerBall1.sprite.setSize(55, 55);
-        additionalComputerBall1.setMovementPattern(new CircularMovement(computerBall,MyGdxGame.WIDTH / 5, 4*(MyGdxGame.WIDTH/12), MyGdxGame.HEIGHT / 2, 0));
-
         computerBallArr = new ArrayList<>();
         computerBallArr.add(additionalComputerBall);
-        computerBallArr.add(additionalComputerBall1);
 
         powerUps = new PowerUps(txtreTime, "", computerBall, playerBall);
         powerUps.setPlayer2Ball(playerBall);
@@ -136,7 +134,8 @@ public class SingleplayerScreen extends AbstractScreen {
         powerUps.getPowerUpBall().getMovementPattern().getVisualMovementPattern().setColor(computerBall.getSprite().getColor());
 
         //Adding ScoreBoard
-        Skin skin = assMan.manager.get(assMan.SKIN);
+        Skin skin = assMan.getManager().get(assMan.SKIN, Skin.class);
+
         score = new Label("Highcore: "+String.valueOf(playerBall.score), skin);
         //score.setOrigin(MyGdxGame.WIDTH/5, 7*MyGdxGame.HEIGHT/10);
         score.setPosition(MyGdxGame.WIDTH/4, 7*MyGdxGame.HEIGHT/10);
@@ -150,6 +149,11 @@ public class SingleplayerScreen extends AbstractScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         score.setText("Score: "+ playerScore);
+
+        if(playerScore%10==0 && playerScore>0) {
+            // TODO: scores need to be reworked.
+            // soundScorePoint.play();
+        }
 
         if (Gdx.input.isTouched()) {
             playerBall.setSpeedMultiplier(5);
@@ -170,10 +174,11 @@ public class SingleplayerScreen extends AbstractScreen {
         draw();
 
         // Must be here or it will collide sprites at default location
-        if (checkCollision(computerBall) || checkCollision(additionalComputerBall) || checkCollision(additionalComputerBall1)) {
+        if (checkCollision(computerBall) || checkCollision(additionalComputerBall)) {
             ScreenManager.getInstance().showScreen(ScreenEnum.GAME_OVER);
         }
     }
+
 
     @Override
     public void dispose() {

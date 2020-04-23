@@ -24,7 +24,6 @@ public class MultiplayerScreen extends AbstractScreen {
 
     private ComputerBall computerBall;
     private ComputerBall additionalComputerBall;
-    private ComputerBall additionalComputerBall1;
 
     private List<ComputerBall> computerBallArr;
 
@@ -41,10 +40,12 @@ public class MultiplayerScreen extends AbstractScreen {
 
     public MultiplayerScreen() {
         super();
-        txtreBall = assMan.manager.get(assMan.TEXTURE_BALL);
-        txtreTime = assMan.manager.get(assMan.TEXTURE_POWERUP_TIME);
-        txtrePoints = assMan.manager.get(assMan.TEXTURE_POWERUP_POINTS);
-        txtreReduce = assMan.manager.get(assMan.TEXTURE_POWERUP_REDUCE);
+
+        txtreBall = assMan.getManager().get(assMan.TEXTURE_BALL, Texture.class);
+        txtreTime = assMan.getManager().get(assMan.TEXTURE_POWERUP_TIME, Texture.class);
+        txtrePoints = assMan.getManager().get(assMan.TEXTURE_POWERUP_POINTS, Texture.class);
+        txtreReduce = assMan.getManager().get(assMan.TEXTURE_POWERUP_REDUCE, Texture.class);
+
     }
 
     public boolean checkPlayer1Collision(ComputerBall computerBall){
@@ -88,8 +89,8 @@ public class MultiplayerScreen extends AbstractScreen {
 
     public void choosePowerUp(int player1Score, int player2Score){
         // Reduce speed
-        if (player1Score >= 25 && player1Score < 35 || player2Score >= 25 && player2Score < 35) {
-            if (player1Score == 25 || player2Score == 1){
+        if (player1Score >= 25 || player2Score >= 25) {
+            if (player1Score == 25 || player2Score == 25){
                 powerUps.setActorName("Reduce speed");
                 powerUps.addNewBall(txtreTime);
                 addActor(powerUps.getPowerUpBall());
@@ -98,13 +99,13 @@ public class MultiplayerScreen extends AbstractScreen {
         }
 
         // Reduce ball
-        if (player1Score >= 45 && player1Score < 55 || player2Score >= 45 && player2Score < 55) {
+        if (player1Score >= 45|| player2Score >= 45) {
             if (player1Score == 45 || player2Score == 45){
                 powerUps.setActorName("Reduce ball");
                 powerUps.addNewBall(txtreReduce);
                 addActor(powerUps.getPowerUpBall());
             }
-            powerUps.reduceBall(additionalComputerBall, additionalComputerBall1);
+            powerUps.reduceBall(additionalComputerBall);
         }
 
         // Increase points
@@ -121,8 +122,6 @@ public class MultiplayerScreen extends AbstractScreen {
         if (player1Score % 30 == 0 && player1Score != 0 || player2Score % 30 == 0 && player2Score != 0){
             if (player1Score/30 == 1 || player2Score/30 == 1){
                 addActor(additionalComputerBall);
-            }else if(player1Score/30 == 2 || player2Score/30 == 2){
-                addActor(additionalComputerBall1);
             }
         }
     }
@@ -161,22 +160,17 @@ public class MultiplayerScreen extends AbstractScreen {
         additionalComputerBall.sprite.setColor(1,0,0,1);
         additionalComputerBall.getMovementPattern().getVisualMovementPattern().setColor(additionalComputerBall.sprite.getColor());
 
-        additionalComputerBall1 = new ComputerBall(txtreBall, "computerBall");
-        additionalComputerBall1.sprite.setSize(55,55);
-        additionalComputerBall1.setMovementPattern(new CircularMovement(additionalComputerBall1,MyGdxGame.WIDTH/5, 4*(MyGdxGame.WIDTH/12), 4*MyGdxGame.HEIGHT/10, 270));
-        additionalComputerBall1.sprite.setColor(1,0,0,1);
-        additionalComputerBall1.getMovementPattern().getVisualMovementPattern().setColor(additionalComputerBall1.sprite.getColor());
-
         powerUps = new PowerUps(txtreTime, "", computerBall, playerBall);
         powerUps.setPlayer2Ball(player2Ball);
         powerUps.getPowerUpBall().setMovementPattern(new CircularMovement(powerUps,MyGdxGame.WIDTH/5, 4*(MyGdxGame.WIDTH/12), 4*MyGdxGame.HEIGHT/10, 270));
         powerUps.getPowerUpBall().getMovementPattern().getVisualMovementPattern().setColor(computerBall.getSprite().getColor());
         computerBallArr = new ArrayList<>();
         computerBallArr.add(additionalComputerBall);
-        computerBallArr.add(additionalComputerBall1);
 
         //Adding Score
-        Skin skin = assMan.manager.get(assMan.SKIN);
+
+        Skin skin = assMan.getManager().get(assMan.SKIN, Skin.class);
+
         scoreboard = new Label(String.valueOf(playerBall.score + String.valueOf(player2Ball.score)), skin);
         //score.setOrigin(MyGdxGame.WIDTH/5, 7*MyGdxGame.HEIGHT/10);
         scoreboard.setPosition(MyGdxGame.WIDTH/4, 4*MyGdxGame.HEIGHT/10);
@@ -214,9 +208,9 @@ public class MultiplayerScreen extends AbstractScreen {
         draw();
 
         // Must be here or it will collide sprites at default location
-        if (checkPlayer1Collision(computerBall) || checkPlayer1Collision(additionalComputerBall) ||  checkPlayer1Collision(additionalComputerBall1)){
+        if (checkPlayer1Collision(computerBall) || checkPlayer1Collision(additionalComputerBall)){
             ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
-        }else if(checkPlayer2collision(computerBall) || checkPlayer2collision(additionalComputerBall) ||  checkPlayer1Collision(additionalComputerBall1)){
+        }else if(checkPlayer2collision(computerBall) || checkPlayer2collision(additionalComputerBall)){
             ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
         }
     }

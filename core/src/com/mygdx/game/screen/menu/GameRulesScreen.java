@@ -27,7 +27,7 @@ public class GameRulesScreen extends AbstractScreen {
         // table.setDebug(true);
 
         // Table content
-        Skin skin = assMan.manager.get(assMan.SKIN);
+        Skin skin = ScreenManager.getInstance().getAssetManager().getManager().get(ScreenManager.getInstance().getAssetManager().SKIN);
         Label descriptionHeader = new Label("Game Rules",skin);
         descriptionHeader.setFontScale(2,2);
         Label descriptionParagraph = new Label("1. Avoid collision with the red enemy ball " +
@@ -48,7 +48,6 @@ public class GameRulesScreen extends AbstractScreen {
         table.row().pad(30,0,0,0);
         table.add(btnMainMenu).fillX().uniformX();
 
-        // Refactor this to a Factory class for UI elements and listeners?
         addActor(table);
 
         btnMainMenu.addListener(new ChangeListener() {

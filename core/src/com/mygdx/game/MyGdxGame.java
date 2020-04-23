@@ -13,9 +13,6 @@ import com.mygdx.game.utils.ScreenManager;
 
 public class MyGdxGame extends Game {
 
-	SpriteBatch batch;
-	ShapeRenderer shapeRenderer;
-	BitmapFont font;
 	public static final int WIDTH = 768;
 	public static final int HEIGHT = 1024;
 
@@ -29,9 +26,6 @@ public class MyGdxGame extends Game {
 	public void create() {
 		ScreenManager.getInstance().initialize(this);
 		ScreenManager.getInstance().showScreen(ScreenEnum.LOADING);
-		batch = new SpriteBatch();
-		shapeRenderer = new ShapeRenderer();
-		font = new BitmapFont();
 	}
 	@Override
 	public void render() {
@@ -41,9 +35,6 @@ public class MyGdxGame extends Game {
 
 	@Override
 	public void dispose() {
-		batch.dispose();
-		shapeRenderer.dispose();
-		font.dispose();
+		super.dispose();
 	}
-
 }

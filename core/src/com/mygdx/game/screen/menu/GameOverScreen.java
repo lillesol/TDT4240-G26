@@ -27,7 +27,7 @@ public class GameOverScreen extends AbstractScreen {
         table.setFillParent(true);
         // table.setDebug(true);
 
-        Skin skin = assMan.manager.get(assMan.SKIN);
+        Skin skin = assMan.getManager().get(assMan.SKIN, Skin.class);
         Label descriptionHeader = new Label("Game Over",skin);
         descriptionHeader.setFontScale(2,2);
         descriptionHeader.setAlignment(Align.center);

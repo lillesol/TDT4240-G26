@@ -34,6 +34,12 @@ public enum ScreenEnum {
     },
     LOADING {
         public AbstractScreen getScreen(Object... params) {
+            try{
+                if(params[0] instanceof ScreenEnum) {
+                    return new LoadingScreen((ScreenEnum)params[0]);
+                }
+            }catch(Exception e){}
+
             return new LoadingScreen();
         }
     },
