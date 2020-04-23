@@ -56,10 +56,10 @@ public class MultiplayerScreen extends AbstractScreen {
         return (player2Ball.sprite.getBoundingRectangle().overlaps(computerBall.sprite.getBoundingRectangle()));
     }
 
-    //For mobile version with real touch IF
+    //For mobile version with touch IF
     // "i" denotes finger id fingers at once
     public void multipleInputUpdate(){
-        for (int id=1 ; id<3; id++ ) {
+        for (int id=0 ; id<3; id++ ) {
             if (Gdx.input.isTouched(id)) {
                 if (Gdx.input.getY(id) > MyGdxGame.HEIGHT/2){
                     playerBall.setSpeedMultiplier(5);
@@ -189,7 +189,7 @@ public class MultiplayerScreen extends AbstractScreen {
         scoreboard.setText("Score: "+player1Score +" : "+player2Score);
 
 
-        //only for desktop driven programs
+        //only for desktop driven version
         singleInputUpdate();
         //for version on mobile
         //multipleInputUpdate();

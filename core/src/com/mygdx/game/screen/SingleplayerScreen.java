@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 
+import com.mygdx.game.actors.movement_patterns.SquareMovement;
 import com.mygdx.game.utils.GeoRushAssetManager;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -108,7 +109,7 @@ public class SingleplayerScreen extends AbstractScreen {
         playerBall = new PlayerBall(txtreBall, "playerBall");
         playerBall.setSize(55,55);
         playerBall.setMovementPattern(new CircularMovement(playerBall,MyGdxGame.WIDTH / 5, 4*(MyGdxGame.WIDTH/12), MyGdxGame.HEIGHT / 3, 190));
-        // playerBall.setMovementPattern( new SquareMovement(MyGdxGame.WIDTH/5,MyGdxGame.HEIGHT/4));
+        //playerBall.setMovementPattern( new SquareMovement(playerBall,4*(MyGdxGame.WIDTH/12),MyGdxGame.HEIGHT/4));
         playerBall.sprite.setColor(0, 1, 0, 1);
         playerBall.getMovementPattern().getVisualMovementPattern().setColor(playerBall.sprite.getColor());
         addActor(playerBall);

@@ -26,6 +26,7 @@ public class PlayerBall extends Actor {
     public MovementPattern getMovementPattern() {
         return movementPattern;
     }
+
     public void setMovementPattern(MovementPattern movementPattern) {
         this.movementPattern = movementPattern;
     }

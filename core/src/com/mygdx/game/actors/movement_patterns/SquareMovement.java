@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.MyGdxGame;
 
 public class SquareMovement extends MovementPattern{
@@ -15,24 +16,32 @@ public class SquareMovement extends MovementPattern{
     private float squareWidth;
     private float squareHeight;
     private ShapeRenderer visualMovementPattern;
+    private Actor actor;
 
-    public SquareMovement(float centerX, float centerY){
+    public SquareMovement(Actor actor, float centerX, float centerY){
+        this.actor = actor;
         this.centerX = centerX;
         this.centerY = centerY;
         squareWidth = MyGdxGame.WIDTH/2;
         squareHeight = MyGdxGame.HEIGHT/5;
         y = this.centerY- (squareHeight/2);
         x = this.centerX;
+        visualMovementPattern = new ShapeRenderer();
+        synchronize();
     }
 
     public ShapeRenderer getVisualMovementPattern() {
         return visualMovementPattern;
     }
 
+    public void synchronize(){
+        actor.setPosition(x,y);
+    }
+
     @Override
     public float[] move(float delta) {
-        //CHANGE SPEED HERE BY CHANGEING AMOUNT OF STEPS
-        delta *= 200;
+        //CHANGE BASE SPEED HERE BY CHANGEING AMOUNT OF STEPS
+        delta *= 150;
 
         if (x <= centerX-(squareWidth/2)&& y<= centerY+(squareHeight /2)){
             this.y += delta;
@@ -47,21 +56,26 @@ public class SquareMovement extends MovementPattern{
         return new float[]{x,y};
     }
 
+    @Override
     public void renderMovementPattern(){
-        visualMovementPattern = new ShapeRenderer();
         visualMovementPattern.begin(ShapeRenderer.ShapeType.Point);
-        float angle =0;
-        for (float i=0; i-1<360; i+=0.1){
-            float x = centerX+150 + (float)Math.cos(angle + i)*(+50);
-            float y = centerY+125 + (float)Math.sin(angle + i)*(+50);
-            angle+=i;
-            visualMovementPattern.point(x,y,0);
-            //System.out.println("render x " + centerX + " render y "+centerY);
+        for (float x = centerX-(squareWidth/2)-1; x<=centerX+(squareWidth/2)+1;x+=0.1){
+            for (float y = centerY-(squareHeight/2)-1; y <= centerY+(squareHeight/2)+1; y+=0.1){
+                if (x <= centerX-(squareWidth/2)&& y<= centerY+(squareHeight /2)){
+                    visualMovementPattern.point(x,y,0);
+                }else if (x <= centerX+(squareWidth/2)&& y >= centerY+(squareHeight /2)){
+                    visualMovementPattern.point(x,y,0);
+                }else if (x >= centerX+(squareWidth/2)&& y>= centerY-(squareHeight /2)){
+                    visualMovementPattern.point(x,y,0);
+                }else if (x >= centerX-(squareWidth/2)&& y <= centerY-(squareHeight /2)){
+                    visualMovementPattern.point(x,y,0);
+                }
+            }
         }
-        visualMovementPattern.setColor(Color.WHITE);
+        //visualMovementPattern.setColor(Color.WHITE);
         //movementPattern.translate(MyGdxGame.WIDTH/4, MyGdxGame.HEIGHT/2,100);
         visualMovementPattern.end();
-        visualMovementPattern.dispose();
+        //visualMovementPattern.dispose();
     }
     /*
     @Override
