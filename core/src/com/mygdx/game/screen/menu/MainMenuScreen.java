@@ -26,49 +26,48 @@ public class MainMenuScreen extends AbstractScreen {
     public void buildStage() {
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
+        // table.setDebug(true);
 
         Skin skin = assMan.manager.get(assMan.SKIN);
+
         Label screenHeader = new Label("Main Menu",skin);
         screenHeader.setFontScale(2,2);
+        screenHeader.setAlignment(Align.center);
         // For leaderboard testing
         final Random randomLeaderboardScore = new Random();
-
-        Skin skin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
         TextButton btnNewGame = new TextButton("New Game", skin);
         final TextButton btnPreferences = new TextButton("Preferences", skin);
         final TextButton btnSignIn = new TextButton("Sign in", skin);
         TextButton btnLeaderboard = new TextButton("Leaderboard", skin);
-        TextButton btnLbTest = new TextButton("Leaderboard Test Random Score", skin);
-        TextButton btnPreferences = new TextButton("Preferences", skin);
+        //TextButton btnLbTest = new TextButton("Leaderboard Test Random Score", skin);
         TextButton btnGameRules = new TextButton("Game Rules", skin);
         TextButton btnQuit = new TextButton("Quit", skin);
         final Label onlineStatusLabael = new Label("Please sign into Google Play Services", skin);
         onlineStatusLabael.setWrap(true);
         onlineStatusLabael.setAlignment(Align.center);
 
-        table.add(screenHeader).fillX().uniformX();
-        table.row().pad(20,0,0,0);
         // If user is already signed in
         if(MyGdxGame.gpgs.isSignedIn()){
             btnSignIn.setText("Sign out");
             onlineStatusLabael.setText("Signed into Google Play Services");
         }
 
+        table.add(screenHeader).fillX().uniformX();
+        table.row().pad(30,0,0,0);
         table.add(btnNewGame).fillX().uniformX();
+        table.row().pad(20,0,0,0);
+        table.add(btnLeaderboard).fillX().uniformX();
         table.row();
         table.add(btnPreferences).fillX().uniformX();
         table.row();
         table.add(btnGameRules).fillX().uniformX();
-        table.row().pad(20,0,0,0);
-        table.add(btnLeaderboard).fillX().uniformX();
+        //table.row();
+        //table.add(btnLbTest).fillX().uniformX();
         table.row();
-        table.add(btnLbTest).fillX().uniformX();
-        table.row().pad(10,0,10,0);
         table.add(btnSignIn).fillX().uniformX();
-        table.row().pad(10,0,10,0);
+        table.row().pad(20,0,0,0);
         table.add(btnQuit).fillX().uniformX();
-        table.row().pad(20,0,10,0);
+        table.row().pad(30,0,0,0);
         table.add(onlineStatusLabael).fillX().uniformX();
 
         // Refactor this to a Factory class for UI elements and listeners?
@@ -93,11 +92,12 @@ public class MainMenuScreen extends AbstractScreen {
                     MyGdxGame.gpgs.onShowLeaderboardsRequested();
                 }else {
                     btnSignIn.setText("Sign in");
-                    onlineStatusLabael.setText("Looks like you haven't signed in successfully after all.. Please try again.");
+                    onlineStatusLabael.setText("Looks like you haven't signed in successfully.. Please try again.");
                     return;
                 }
             }
         });
+        /*
         btnLbTest.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -108,6 +108,7 @@ public class MainMenuScreen extends AbstractScreen {
                 }
             }
         });
+         */
         btnSignIn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
