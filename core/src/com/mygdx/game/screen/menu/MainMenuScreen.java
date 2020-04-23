@@ -26,13 +26,12 @@ public class MainMenuScreen extends AbstractScreen {
     public void buildStage() {
         Table table = new Table();
         table.setFillParent(true);
-        // table.setDebug(true);
         table.setDebug(false);
 
 
         Skin skin = assMan.getManager().get(assMan.SKIN, Skin.class);
         Label screenHeader = new Label("Main Menu",skin, "title");
-        screenHeader.setFontScale(2,2);
+        //screenHeader.setFontScale(2,2);
         screenHeader.setAlignment(Align.center);
         // For leaderboard testing
         final Random randomLeaderboardScore = new Random();

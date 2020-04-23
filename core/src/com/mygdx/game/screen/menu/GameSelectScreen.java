@@ -29,9 +29,9 @@ public class GameSelectScreen extends AbstractScreen {
         table.setFillParent(true);
         // table.setDebug(true);
 
-        Skin skin = assMan.manager.get(assMan.SKIN);
-        Label descriptionHeader = new Label("Select Game", skin);
-        descriptionHeader.setFontScale(2,2);
+        Skin skin = assMan.getManager().get(assMan.SKIN);
+        Label descriptionHeader = new Label("Select Game", skin, "title");
+        //descriptionHeader.setFontScale(2,2);
         descriptionHeader.setAlignment(Align.center);
         TextButton btnSingleplayer = new TextButton("SINGLE PLAYER", skin);
         TextButton btnMultiplayer = new TextButton("TWO-PLAYER", skin);

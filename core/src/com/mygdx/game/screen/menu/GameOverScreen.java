@@ -15,7 +15,8 @@ import com.mygdx.game.utils.ScreenEnum;
 import com.mygdx.game.utils.ScreenManager;
 
 public class GameOverScreen extends AbstractScreen {
-    private GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
+    GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
+
     public GameOverScreen() {
         super();
     }
@@ -25,11 +26,10 @@ public class GameOverScreen extends AbstractScreen {
         System.out.println(this.getClass());
         Table table = new Table();
         table.setFillParent(true);
-        // table.setDebug(true);
+        table.setDebug(false);
 
         Skin skin = assMan.getManager().get(assMan.SKIN, Skin.class);
-        Label descriptionHeader = new Label("Game Over",skin);
-        descriptionHeader.setFontScale(2,2);
+        Label descriptionHeader = new Label("Game Over",skin, "title");
         descriptionHeader.setAlignment(Align.center);
         TextButton btnSingleplayer = new TextButton("Replay", skin);
         TextButton btnMainMenu = new TextButton("< Main Menu", skin);

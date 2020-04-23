@@ -7,11 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.screen.AbstractScreen;
 import com.mygdx.game.utils.GeoRushAssetManager;
 
+import com.mygdx.game.utils.ScreenEnum;
 import com.mygdx.game.utils.ScreenManager;
 
 public class PreferencesScreen extends AbstractScreen implements Screen {
@@ -66,6 +68,8 @@ public class PreferencesScreen extends AbstractScreen implements Screen {
         this.setVolumeText();
         this.setSliderValues();
 
+        TextButton btnMainMenu = new TextButton("< MAIN MENU", skin);
+
         table.add(title).center().expandX();
         table.row().pad(30,0,10,0);
 
@@ -108,7 +112,17 @@ public class PreferencesScreen extends AbstractScreen implements Screen {
             }
         });
 
+        table.row().pad(30,0,0,0);
+        table.add(btnMainMenu).fillX().uniformX();
+
         addActor(table);
+
+        btnMainMenu.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+            }
+        });
     }
 
     private void setVolumeText(){
@@ -122,6 +136,7 @@ public class PreferencesScreen extends AbstractScreen implements Screen {
         sliderSfxVolume.setValue(sfxVolume);
         sliderMusicVolume.setValue(musicVolume);
     }
+
     @Override
     public void dispose() {
         super.dispose();

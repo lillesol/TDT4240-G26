@@ -14,8 +14,7 @@ import com.mygdx.game.utils.ScreenEnum;
 import com.mygdx.game.utils.ScreenManager;
 
 public class GameRulesScreen extends AbstractScreen {
-    private GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
-
+    GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
 
     public GameRulesScreen(){
         super();
@@ -24,12 +23,11 @@ public class GameRulesScreen extends AbstractScreen {
     public void buildStage() {
         Table table = new Table();
         table.setFillParent(true);
-        // table.setDebug(true);
+        table.setDebug(false);
 
         // Table content
-        Skin skin = ScreenManager.getInstance().getAssetManager().getManager().get(ScreenManager.getInstance().getAssetManager().SKIN);
-        Label descriptionHeader = new Label("Game Rules",skin);
-        descriptionHeader.setFontScale(2,2);
+        Skin skin = assMan.getManager().get(assMan.SKIN, Skin.class);
+        Label descriptionHeader = new Label("Game Rules",skin, "title");
         Label descriptionParagraph = new Label("1. Avoid collision with the red enemy ball " +
                 "\n" +
                 "\n2. Touch screen to increase the speed off your ball" +
