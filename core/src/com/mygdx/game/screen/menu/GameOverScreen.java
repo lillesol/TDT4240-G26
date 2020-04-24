@@ -3,17 +3,20 @@ package com.mygdx.game.screen.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.screen.AbstractScreen;
 import com.mygdx.game.utils.GeoRushAssetManager;
 import com.mygdx.game.utils.ScreenEnum;
 import com.mygdx.game.utils.ScreenManager;
 
 public class GameOverScreen extends AbstractScreen {
-    private GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
+    GeoRushAssetManager assMan = ScreenManager.getInstance().getAssetManager();
+
     public GameOverScreen() {
         super();
     }
@@ -23,14 +26,17 @@ public class GameOverScreen extends AbstractScreen {
         System.out.println(this.getClass());
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
+        table.setDebug(false);
 
         Skin skin = assMan.getManager().get(assMan.SKIN, Skin.class);
-
+        Label descriptionHeader = new Label("Game Over",skin, "title");
+        descriptionHeader.setAlignment(Align.center);
         TextButton btnSingleplayer = new TextButton("Replay", skin);
         TextButton btnMainMenu = new TextButton("< Main Menu", skin);
+        table.add(descriptionHeader).fillX().uniformX();
+        table.row().pad(30,0,0,0);
         table.add(btnSingleplayer).fillX().uniformX();
-        table.row().pad(10,0,0,0);
+        table.row();
         table.add(btnMainMenu).fillX().uniformX();
 
 

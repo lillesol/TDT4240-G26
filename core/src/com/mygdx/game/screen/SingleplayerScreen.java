@@ -177,6 +177,10 @@ public class SingleplayerScreen extends AbstractScreen {
         // Must be here or it will collide sprites at default location
         if (checkCollision(computerBall) || checkCollision(additionalComputerBall)) {
             ScreenManager.getInstance().showScreen(ScreenEnum.GAME_OVER);
+            // Check for achievements, update leaderboard, and push accomplishments to Google Play Game Services
+            if(MyGdxGame.gpgs.isSignedIn()) {
+                MyGdxGame.gpgs.onEnteredScore((int) playerBall.score);
+            }
         }
     }
 

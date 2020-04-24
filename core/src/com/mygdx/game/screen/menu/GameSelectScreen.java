@@ -4,10 +4,12 @@ package com.mygdx.game.screen.menu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.screen.AbstractScreen;
 import com.mygdx.game.utils.GeoRushAssetManager;
 import com.mygdx.game.utils.ScreenEnum;
@@ -25,17 +27,21 @@ public class GameSelectScreen extends AbstractScreen {
         System.out.println(this.getClass());
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
+        // table.setDebug(true);
 
         Skin skin = assMan.getManager().get(assMan.SKIN);
+        Label descriptionHeader = new Label("Select Game", skin, "title");
+        //descriptionHeader.setFontScale(2,2);
+        descriptionHeader.setAlignment(Align.center);
         TextButton btnSingleplayer = new TextButton("SINGLE PLAYER", skin);
         TextButton btnMultiplayer = new TextButton("TWO-PLAYER", skin);
         TextButton btnMainMenu = new TextButton("< MAIN MENU", skin);
-
-      table.add(btnSingleplayer).fillX().uniformX();
-        table.row().pad(10,0,0,0);
+        table.add(descriptionHeader).fillX().uniformX();
+        table.row().pad(30,0,0,0);
+        table.add(btnSingleplayer).fillX().uniformX();
+        table.row();
         table.add(btnMultiplayer).fillX().uniformX();
-        table.row().pad(20,0,0,0);
+        table.row().pad(30,0,0,0);
         table.add(btnMainMenu).fillX().uniformX();
 
 
