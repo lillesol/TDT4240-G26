@@ -1,6 +1,7 @@
 package com.mygdx.game.actors;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.mygdx.game.MyGdxGame;
@@ -24,6 +25,7 @@ public class PowerUps extends PowerUpBall {
 
     private String actorName;
 
+    private Sound soundScorePoint;
 
     public PowerUps(Texture texture, String actorName, ComputerBall computerBall, PlayerBall playerBall) {
         super(texture, actorName);
@@ -33,6 +35,7 @@ public class PowerUps extends PowerUpBall {
 
         this.setActorName(actorName);
 
+        soundScorePoint = assMan.getManager().get(assMan.SOUND_SCORE_POINT, Sound.class);
 
         txtreSprite = assMan.getManager().get(assMan.TEXTURE_POWERUP_TIME, Texture.class);
         powerUpBall = new PowerUpBall(txtreSprite, "computerBall");
@@ -54,10 +57,11 @@ public class PowerUps extends PowerUpBall {
             } else {
                 currSpeed--;
             }
-
             computerBall.setSpeedMultiplier(currSpeed);
             powerUpBall.addAction(Actions.removeActor());
             powerUpBall.setPosition(999,999);
+
+            soundScorePoint.play(Float.parseFloat(ScreenManager.getInstance().getPreferences().getString("sfxVolume", "0.5")));
         }
     }
 
@@ -66,7 +70,10 @@ public class PowerUps extends PowerUpBall {
             addComputerBall.addAction(Actions.removeActor());
             powerUpBall.addAction(Actions.removeActor());
             powerUpBall.setPosition(999,999);
+
+            soundScorePoint.play(Float.parseFloat(ScreenManager.getInstance().getPreferences().getString("sfxVolume", "0.5")));
         }
+
     }
 
     public void addPowerUpPoint(){
@@ -76,6 +83,8 @@ public class PowerUps extends PowerUpBall {
             computerBall.setSpeedMultiplier(currSpeed);
             powerUpBall.addAction(Actions.removeActor());
             powerUpBall.setPosition(999,999);
+
+            soundScorePoint.play(Float.parseFloat(ScreenManager.getInstance().getPreferences().getString("sfxVolume", "0.5")));
         }
     }
 

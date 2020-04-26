@@ -40,7 +40,7 @@ public class SingleplayerScreen extends AbstractScreen {
 
     private PowerUps powerUps;
 
-    private Sound soundScorePoint;
+    private Sound soundGameOver;
 
     public SingleplayerScreen() {
         super();
@@ -51,7 +51,7 @@ public class SingleplayerScreen extends AbstractScreen {
         txtrePoints = assMan.getManager().get(assMan.TEXTURE_POWERUP_POINTS, Texture.class);
         txtreReduce = assMan.getManager().get(assMan.TEXTURE_POWERUP_REDUCE, Texture.class);
         txtreTime = assMan.getManager().get(assMan.TEXTURE_POWERUP_TIME, Texture.class);
-        soundScorePoint = assMan.getManager().get(assMan.SOUND_SCORE_POINT, Sound.class);
+        soundGameOver = assMan.getManager().get(assMan.SOUND_GAME_OVER, Sound.class);
 
     }
 
@@ -151,8 +151,7 @@ public class SingleplayerScreen extends AbstractScreen {
         score.setText("Score: "+ playerScore);
 
         if(playerScore%10==0 && playerScore>0) {
-            // TODO: scores need to be reworked.
-            // soundScorePoint.play();
+            playerBall.score+=1;
         }
 
         if (Gdx.input.isTouched()) {
@@ -175,6 +174,8 @@ public class SingleplayerScreen extends AbstractScreen {
 
         // Must be here or it will collide sprites at default location
         if (checkCollision(computerBall) || checkCollision(additionalComputerBall)) {
+            Gdx.input.vibrate(200);
+            soundGameOver.play(Float.parseFloat(ScreenManager.getInstance().getPreferences().getString("sfxVolume", "0.5")));
             ScreenManager.getInstance().showScreen(ScreenEnum.GAME_OVER);
             // Check for achievements, update leaderboard, and push accomplishments to Google Play Game Services
             if(MyGdxGame.gpgs.isSignedIn()) {

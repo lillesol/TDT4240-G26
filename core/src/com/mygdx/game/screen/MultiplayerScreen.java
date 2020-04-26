@@ -1,6 +1,7 @@
 package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -36,6 +37,7 @@ public class MultiplayerScreen extends AbstractScreen {
     private Texture txtrePoints;
     private Texture txtreReduce;
 
+    private Sound soundGameOver;
     private PowerUps powerUps;
 
     public MultiplayerScreen() {
@@ -45,6 +47,7 @@ public class MultiplayerScreen extends AbstractScreen {
         txtreTime = assMan.getManager().get(assMan.TEXTURE_POWERUP_TIME, Texture.class);
         txtrePoints = assMan.getManager().get(assMan.TEXTURE_POWERUP_POINTS, Texture.class);
         txtreReduce = assMan.getManager().get(assMan.TEXTURE_POWERUP_REDUCE, Texture.class);
+        soundGameOver = assMan.getManager().get(assMan.SOUND_GAME_OVER, Sound.class);
 
     }
 
@@ -209,8 +212,13 @@ public class MultiplayerScreen extends AbstractScreen {
 
         // Must be here or it will collide sprites at default location
         if (checkPlayer1Collision(computerBall) || checkPlayer1Collision(additionalComputerBall)){
+            Gdx.input.vibrate(200);
+            soundGameOver.play(Float.parseFloat(ScreenManager.getInstance().getPreferences().getString("sfxVolume", "0.5")));
             ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+
         }else if(checkPlayer2collision(computerBall) || checkPlayer2collision(additionalComputerBall)){
+            Gdx.input.vibrate(200);
+            soundGameOver.play(Float.parseFloat(ScreenManager.getInstance().getPreferences().getString("sfxVolume", "0.5")));
             ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
         }
     }
