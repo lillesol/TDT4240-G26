@@ -1,5 +1,7 @@
 package com.mygdx.game.utils;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.screen.AbstractScreen;
@@ -31,6 +33,7 @@ public class ScreenManager {
     public ScreenEnum getCurrentScreen() {
         return currentScreen;
     }
+
     public void showScreen(ScreenEnum screenEnum, Object... params) {
 
         Screen oldScreen = game.getScreen();
@@ -49,4 +52,14 @@ public class ScreenManager {
     public GeoRushAssetManager getAssetManager() {
         return this.manager;
     }
+
+    // Preferences
+    private Preferences preferences;
+    public void loadPreferences(){
+        preferences = Gdx.app.getPreferences("GeoRush.settings");
+    }
+    public Preferences getPreferences() {
+        return preferences;
+    }
+
 }

@@ -28,7 +28,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(this);
-        Gdx.input.setCatchKey(Input.Buttons.BACK, true);
+        Gdx.input.setCatchKey(Input.Keys.BACK, true);
     }
 
     public void resize(int width, int height) {

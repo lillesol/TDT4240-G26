@@ -8,6 +8,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+
 public class GeoRushAssetManager {
 
     private AssetManager manager = new AssetManager();
@@ -38,23 +39,17 @@ public class GeoRushAssetManager {
     }
 
     public final String SOUND_SCORE_POINT = "sound/score_point.mp3";
+    public final String SOUND_GAME_OVER = "sound/Negative4.mp3";
     // Sounds
     public void loadSounds() {
         manager.load(SOUND_SCORE_POINT, Sound.class);
+        manager.load(SOUND_GAME_OVER, Sound.class);
     }
 
     // Font
     public void loadFonts() {
     }
 
-    // Preferences
-    private Preferences preferences;
-    public void loadPreferences(){
-        preferences = Gdx.app.getPreferences("GeoRush.settings");
-    }
-    public Preferences getPreferences() {
-        return preferences;
-    }
 
     public AssetManager getManager() {
         return manager;

@@ -1,6 +1,7 @@
 package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -71,7 +72,7 @@ public class LoadingScreen extends AbstractScreen {
     }
     @Override
     public void buildStage() {
-        assMan.loadPreferences();
+        ScreenManager.getInstance().loadPreferences();
         assMan.loadSkins();
         assMan.getManager().finishLoading();
 

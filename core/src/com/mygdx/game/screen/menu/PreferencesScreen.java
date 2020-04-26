@@ -33,7 +33,7 @@ public class PreferencesScreen extends AbstractScreen implements Screen {
     private Preferences preferences;
     public PreferencesScreen() {
         super();
-        preferences = assMan.getPreferences();
+        preferences = ScreenManager.getInstance().getPreferences();
         masterVolume = Float.parseFloat(preferences.getString("masterVolume", "0.5"));
         sfxVolume = Float.parseFloat(preferences.getString("sfxVolume", "0.5"));
         musicVolume = Float.parseFloat(preferences.getString("musicVolume", "0.5"));

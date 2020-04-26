@@ -10,6 +10,8 @@ import com.mygdx.game.screen.LoadingScreen;
 import com.mygdx.game.screen.menu.MainMenuScreen;
 import com.mygdx.game.screen.menu.PreferencesScreen;
 
+// Define factory methods which encapsulate the creation of different screens.
+// The factory method can take any parameters if needed for constructing different screens.
 public enum ScreenEnum {
 
     MAIN_MENU {
