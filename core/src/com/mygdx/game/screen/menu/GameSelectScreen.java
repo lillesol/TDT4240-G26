@@ -69,14 +69,6 @@ public class GameSelectScreen extends AbstractScreen {
     }
 
     @Override
-    public boolean keyDown(int keycode) {
-        if(keycode == Input.Keys.BACK) {
-            ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
-            return true;
-        }
-        return false;
-    }
-    @Override
     public void dispose() {
         super.dispose();
     }

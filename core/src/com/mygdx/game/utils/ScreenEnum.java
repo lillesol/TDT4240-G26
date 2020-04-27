@@ -42,8 +42,7 @@ public enum ScreenEnum {
                 }
             }catch(Exception e){}
 
-            return new LoadingScreen();
-        }
+            return new LoadingScreen();        }
     },
     GAME_OVER {
         public AbstractScreen getScreen(Object... params) {

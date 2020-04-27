@@ -151,10 +151,6 @@ public class SingleplayerScreen extends AbstractScreen {
 
         score.setText("Score: "+ playerScore);
 
-        if(playerScore%10==0 && playerScore>0) {
-            playerBall.score+=1;
-        }
-
         if (Gdx.input.isTouched()) {
             playerBall.setSpeedMultiplier(5);
 
