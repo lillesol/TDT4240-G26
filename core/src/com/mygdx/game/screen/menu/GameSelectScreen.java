@@ -24,10 +24,9 @@ public class GameSelectScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
-        System.out.println(this.getClass());
         Table table = new Table();
         table.setFillParent(true);
-        // table.setDebug(true);
+        table.setDebug(false);
 
         Skin skin = assMan.getManager().get(assMan.SKIN);
         Label descriptionHeader = new Label("Select Game", skin, "title");

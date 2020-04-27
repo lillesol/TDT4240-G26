@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.screen.AbstractScreen;
 import com.mygdx.game.utils.GeoRushAssetManager;
 
@@ -41,12 +42,10 @@ public class PreferencesScreen extends AbstractScreen implements Screen {
 
     @Override
     public void buildStage() {
-        System.out.println(this.getClass());
         Table table = new Table();
         table.setFillParent(true);
         table.setDebug(false);
-        table.top().left();
-        table.pad(50,50,50,50);
+        table.pad(20,50,0,50);
         Skin skin = assMan.getManager().get(assMan.SKIN, Skin.class);
 
         Label title = new Label("Preferences", skin, "title");
